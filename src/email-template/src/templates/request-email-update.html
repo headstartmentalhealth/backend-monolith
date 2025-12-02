@@ -1,0 +1,27 @@
+---
+title: 'Confirm Your Email Update Request'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}}, 👋
+  </h1>
+
+  <p class="m-0 leading-6">
+    We received a request to update your email address. To confirm this change,
+    please use the OTP (One-Time Password) below:
+  </p>
+
+  <p class="tracking-1 text-md font-bold">🔐 OTP: @{{otp}}</p>
+
+  <p class="leading-6">
+    This OTP is valid for the next 5 minutes. If you did not request this
+    change, please ignore this email or contact our support team immediately.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Cheers, <br />@{{app}}</p>
+</x-main>

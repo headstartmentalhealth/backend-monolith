@@ -1,0 +1,31 @@
+---
+title: 'Your Email Has Been Verified - Let’s Get Started!'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">Your email has been successfully verified! 🎉</p>
+
+  <p class="m-0 leading-6">
+    You’re all set to log in and complete your business profile setup. This is
+    the first step towards unlocking the full potential of @{{app}}.
+  </p>
+
+  <x-spacer height="10px" />
+
+  <x-button href="@{{url}}"> Login Now </x-button>
+
+  <p class="leading-6">
+    If you have any questions or need assistance, don’t hesitate to
+    <a href="@{{url}}">contact us</a>.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Let’s build something amazing together, <br />@{{app}}</p>
+</x-main>

@@ -1,0 +1,346 @@
+---
+title: '📊 Subscription Renewed: @{{subscriber_name}} has renewed their @{{plan_name}} subscription'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <section>
+    <div class="mt-6">
+      <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+        Hi @{{business_owner_name}},
+      </h1>
+      <p class="m-0 leading-6">
+        A member has successfully renewed their subscription. Here are the details:
+      </p>
+
+      <table class="table-auto invoice-summary mt-6 w-full">
+        <tbody>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Subscriber's Name:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{subscriber_name}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Plan Name:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{plan_name}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Subscription ID:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{subscription_id}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Subscription date:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{subscription_date}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Subscription end date:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{subscription_end_date}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Payment status:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{payment_status}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Amount paid:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{amount}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row border-bottom px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Interval:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{interval}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr class="row px-5">
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td>
+                          <p class="title">Auto-renewal:</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+              <table class="w-full">
+                <tr>
+                  <td
+                    class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                  >
+                    <table class="w-full">
+                      <tr>
+                        <td><p>@{{auto_renew}}</p></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-left mt-6">
+        <p class="m-0 leading-6">
+          <p class="m-0 leading-6">You can view more details about this subscription in your <a href="@{{business_subscription_page_link}}">Business Dashboard</a>.</p>
+        </p>
+        <p class="m-0 leading-6">
+          If you have any questions about your subscription, feel free to reach
+          out to our support team at <a href="mailto:{{support_email}}">@{{ support_email }}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">
+    Best regards,<br />
+    The @{{ app }} Team
+  </p>
+</x-main>

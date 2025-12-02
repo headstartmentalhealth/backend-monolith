@@ -1,0 +1,175 @@
+---
+title: 'Withdrawal Request Notification'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Withdrawal Request Alert
+  </h1>
+
+
+  <p class="m-0 leading-6">
+    <p>A user has just submitted a withdrawal request. Below are the details:</p>
+  </p>
+  <table class="table-auto w-full invoice-summary mt-6">
+    <thead>
+      <tr class="row border-bottom px-5">
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td>
+                      <p class="title">User Name</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td
+          class="w-1/2 sm:w-full sm:inline-block align-top text-right"
+        >
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td>
+                      <p>@{{name}} (#@{{user_id}})</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row border-bottom px-5">
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td>
+                      <p class="title">Email</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td><p>@{{email}}</p></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="row border-bottom px-5">
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td>
+                      <p class="title">Withdrawal Account</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td><p>@{{withdrawal_account}}</p></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="row border-bottom px-5">
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-left">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td>
+                      <p class="title">Requested Date</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="w-1/2 sm:w-full sm:inline-block align-top text-right">
+          <table class="w-full">
+            <tr>
+              <td
+                class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+              >
+                <table class="w-full">
+                  <tr>
+                    <td><p>@{{requested_date}}</p></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <p class=" leading-6">
+  Please log in to the admin dashboard to review and process this request.
+  </p>
+
+  <p class="leading-6">
+    Welcome aboard! 🚀
+  </p>
+<!-- 
+  <x-divider space-y="32px" class="bg-slate-200" /> -->
+
+  <p class="m-0">The @{{app}} Team</p>
+</x-main>

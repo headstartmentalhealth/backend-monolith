@@ -1,0 +1,104 @@
+<script props>
+  // https://maizzle.com/docs/components/divider
+  module.exports = {
+    height: props.height || '1px',
+    color: props.color, // any CSS color value
+    top: props.top, // top margin
+    bottom: props.bottom, // bottom margin
+    left: props.left, // left margin
+    right: props.right, // right margin
+    spaceY: props['space-y'] || '24px', // top and bottom margin
+    spaceX: props['space-x'], // right and left margin
+    hasBgClass:
+      props.class && props.class.split(' ').some((c) => c.startsWith('bg-')),
+  };
+</script>
+
+<div>
+  <!-- <div class="flex justify-center mx-auto w-[50%] mx-w-[75%]">
+    <a href="#">
+      <img
+        src="https://res.cloudinary.com/do2kojulq/image/upload/v1729931748/apple-icon_fdtdwe.png"
+        class="w-full"
+      /> </a
+    >&nbsp;&nbsp;
+    <a href="#">
+      <img
+        src="https://res.cloudinary.com/do2kojulq/image/upload/v1729931748/google-play_gqn6as.png"
+        class="w-full"
+      />
+    </a>
+  </div> -->
+
+  @{{#if is_client_logo}}
+  <p class="font-bold">
+    <a
+      href="@{{company_page}}"
+      class="text-[#1e1f3b] [text-decoration:none] hover:![text-decoration:underline]"
+      >@{{business_name}}</a
+    >
+  </p>
+
+  @{{#if social_media_handles}}
+  <p class="cursor-default">
+    @{{#each social_media_handles}}
+    <a
+      href="@{{link}}"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+    >
+      @{{handle}}
+    </a>
+    @{{#unless @last}} &bull; @{{/unless}} @{{/each}}
+  </p>
+  @{{/if}} @{{else}}
+  <p class="">
+    <a
+      href="https://headstartmentalhealth.com"
+      class="text-[#1e1f3b] [text-decoration:none] hover:![text-decoration:underline]"
+      >Home</a
+    >
+    &bull;
+    <a
+      href="#"
+      class="text-[#1e1f3b] [text-decoration:none] hover:![text-decoration:underline]"
+      >Contact</a
+    >
+  </p>
+  <div>
+    <p>@{{address}}</p>
+  </div>
+  <p class="m-0 mb-2">&copy; @{{app}} @{{year}}</p>
+
+  <p class="cursor-default">
+    <a
+      href="https://linkedin.com"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+      >LinkedIn</a
+    >
+    &bull;
+    <a
+      href="https://instagram.com/headstartmentalhealth"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+      >Instagram</a
+    >
+    &bull;
+    <a
+      href="https://www.facebook.com"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+      >Facebook</a
+    >
+    &bull;
+    <a
+      href="https://www.tiktok.com/@headstartmentalhealth"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+      >TikTok</a
+    >
+    &bull;
+    <a
+      href="https://x.com/headstartmentalhealth"
+      class="text-[#13274f] [text-decoration:none] hover:![text-decoration:underline]"
+      >X</a
+    >
+  </p>
+  @{{/if}}
+</div>

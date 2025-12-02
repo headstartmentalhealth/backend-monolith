@@ -1,0 +1,35 @@
+---
+title: 'KYC Application Successfully Submitted'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    New KYC Submission
+  </h1>
+
+  <p class="m-0 leading-6">
+    A new KYC has been submitted
+    for the business:
+    </p>
+    <p class="leading-6 font-bold">
+@{{business_name}} (#@{{business_id}})
+    </p>
+
+    <p class="leading-6">
+      User credentials:
+    </p>
+
+    <p class="leading-6">
+      User ID: <b>@{{user_id}}</b>
+    </p>
+    <p class="leading-6">
+      Email Address: <b>@{{email}}</b>
+    </p>
+    <x-spacer height="10px" />
+
+    Please review and approve or disapprove this KYC as soon as possible.
+  </p>
+
+</x-main>

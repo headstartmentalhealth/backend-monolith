@@ -1,0 +1,45 @@
+---
+title: 'Don’t Miss Out! Your Cart is Waiting for You 🛍️'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    We noticed you left some great items in your cart, and they’re still waiting for you! Don’t let them get away—complete your purchase now before they sell out.
+  </p>
+  <p class="mt-2 leading-6">
+    🛒 Your Cart Items Are Still Available!
+  </p>
+  <p class="m-0 leading-6">
+    <ul>
+      @{{#each items}}
+        <li>@{{name}} - @{{price}}</li>
+      @{{/each}}
+    </ul>
+  </p>
+  <p class="m-0 leading-6">
+    To make it easier, we’ve saved everything for you. Just click below to return and checkout in seconds:
+  </p>
+  
+  <p class="m-0 leading-6">
+    <a href="@{{cart_link}}">👉 View your cart</a>
+  </p>
+  
+
+  <p class="m-0 mt-2 mb-2 leading-6">
+    If you have any questions or need help, feel free to reply to this email or reach out to our support team at @{{support_email}}.
+  </p>
+
+  <x-spacer height="10px" />
+
+  <p class="leading-6">
+    Happy shopping,
+  </p>
+
+  <p class="m-0">The @{{app}} Team</p>
+</x-main>

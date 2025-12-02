@@ -1,0 +1,37 @@
+---
+title: '⏳ Reminder: @{{days_left}} Days Left to Renew Your Subscription'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="mb-4 leading-6">
+    You have <strong>@{{days_left}} days</strong> left to renew your
+    subscription and avoid losing access to
+    <strong>@{{plan_name}}</strong> features.
+  </p>
+  <p class="m-0 leading-6">
+    Please, use the link below to renew your subscription:
+  </p>
+
+  <p class="m-0 leading-6">
+    <a href="@{{subscription_renewal_link}}">👉 Renew your subscription</a>
+  </p>
+
+  <p class="mt-4 leading-6">
+    If you have any questions or need help, feel free to reply to this email or
+    reach out to our support team at
+    <a href="mailto:{{support_email}}">@{{support_email}}</a>.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">
+    Best regards, <br />
+    The @{{app}} Team
+  </p>
+</x-main>

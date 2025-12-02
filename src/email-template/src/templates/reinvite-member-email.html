@@ -1,0 +1,35 @@
+---
+title: '🚀 Just a quick reminder - you’re invited to join @{{business_name}}!'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi there,
+  </h1>
+
+  <p class="m-0 leading-6">
+    We noticed you haven’t accepted your invite to join
+    <b>@{{business_name}}</b> yet, so here’s a friendly reminder! 😊
+  </p>
+
+  <p class="m-0 leading-6">Click the button below to hop on board:</p>
+
+  <x-spacer height="10px" />
+
+  <x-button href="@{{url}}">Accept Invitation</x-button>
+
+  <p class="leading-6">But hurry! ⏳ This invite will expire in @{{expiry}}.</p>
+
+  <p class="leading-6">
+    If you’ve got any questions or didn’t expect this invite, just let us know –
+    we’re here to help! 🙌
+  </p>
+
+  <p class="leading-6">Looking forward to having you on board!</p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Cheers, <br />The @{{app}} Team 🎉</p>
+</x-main>

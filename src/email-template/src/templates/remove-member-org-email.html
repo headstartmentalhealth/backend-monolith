@@ -1,0 +1,38 @@
+---
+title: 'You’ve been removed from @{{business_name}} organization'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    You've been removed as @{{position}} from the
+    <b>@{{business_name}}</b> organization.
+  </p>
+
+  <p class="m-0 leading-6 mb-4">
+    This means you no longer have access to their workspace, tools, or internal
+    resources on our platform.
+  </p>
+
+  <p class="m-0 leading-6 mb-4">
+    If you believe this was done in error or have any questions, please reach
+    out directly to an administrator at
+    <b>@{{business_name}}</b>.
+  </p>
+
+  <p class="m-0 leading-6">
+    For technical assistance, feel free to contact our support team at
+    <a href="mailto:@{{support_email}}" class="text-blue-600 underline"
+      >@{{support_email}}</a
+    >.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Best regards, <br />The @{{app}} Team</p>
+</x-main>

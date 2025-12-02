@@ -1,0 +1,31 @@
+---
+title: '@{{business_name}} has suspended your access'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    Your access to <b>@{{business_name}}</b> has been <b>@{{status}}</b>.
+    <br />As a result, you no longer have access to their workspace, tools, or
+    resources.
+  </p>
+
+  <p class="leading-6">
+    If you believe this was a mistake or need further details, please contact
+    the admin team at @{{business_name}} directly.
+  </p>
+
+  <p class="leading-6">
+    If you have any issues accessing the platform, feel free to reach out to us
+    at @{{app}} support.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Best regards, <br />The @{{app}} Team</p>
+</x-main>

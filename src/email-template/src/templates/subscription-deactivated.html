@@ -1,0 +1,40 @@
+---
+title: '😢 Subscription Deactivated - Reactivate Now'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="mb-4 leading-6">
+    Your <strong>@{{plan_name}}</strong> subscription has been deactivated
+    because we were unable to process your payment. To reactivate your
+    subscription and regain access to your plan's features, please complete the
+    payment process:
+  </p>
+  <p class="m-0 leading-6">
+    Please, use the link below to renew your subscription:
+  </p>
+
+  <p class="m-0 leading-6">
+    <a href="@{{subscription_reactivation_link}}"
+      >👉 Reactivate your subscription</a
+    >
+  </p>
+
+  <p class="mt-4 leading-6">
+    If you have any questions or need help, feel free to reply to this email or
+    reach out to our support team at
+    <a href="mailto:{{support_email}}">@{{support_email}}</a>.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">
+    Best regards, <br />
+    The @{{app}} Team
+  </p>
+</x-main>

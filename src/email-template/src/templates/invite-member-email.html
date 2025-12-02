@@ -1,0 +1,38 @@
+---
+title: 'You’re invited to join @{{business_name}} on @{{app}}!'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi there,
+  </h1>
+
+  <p class="m-0 leading-6">
+    You've been invited to join <b>@{{business_name}}</b> on @{{app}} as
+    @{{role}}.
+  </p>
+
+  <p class="m-0 leading-6">
+    To accept this invitation, click the button below:
+  </p>
+
+  <x-spacer height="10px" />
+
+  <x-button href="@{{url}}">Accept Invitation</x-button>
+
+  <p class="leading-6">
+    This invitation will expire in @{{expiry}}, so be sure to accept it soon!
+  </p>
+
+  <p class="leading-6">
+    If you didn't expect this invitation, you can safely ignore this email.
+  </p>
+
+  <p class="leading-6">Looking forward to having you on board!</p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Best, <br />@{{app}}</p>
+</x-main>

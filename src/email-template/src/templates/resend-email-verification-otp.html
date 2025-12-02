@@ -1,0 +1,31 @@
+---
+title: 'Verify Your Email Address to Complete Your Registration'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    We noticed you haven’t verified your email address yet. To complete your
+    registration and gain access to your account, please verify your email by
+    using the code below:
+  </p>
+
+  <x-spacer height="10px" />
+
+  <p class="tracking-1 text-md font-bold">🔑 Your OTP: @{{otp}}</p>
+
+  <p class="leading-6">
+    Please note that this link will expire in 5 minutes. <br />
+    If you have already verified your email or didn’t request this email, you
+    can safely ignore it. <br />Thank you for joining us!
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Best regards, <br />@{{app}}</p>
+</x-main>

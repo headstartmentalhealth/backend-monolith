@@ -1,0 +1,40 @@
+---
+title: 'Your invitee has accepted your invitation to join @{{business_name}}'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Dear @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    Great news! A user has accepted your invitation and is now part of
+    <b>@{{business_name}}</b>
+  </p>
+
+  <p class="leading-6">
+    📅 Joined On: @{{joined_date}}<br />
+    👤 User Email: @{{invitee_email}}
+  </p>
+
+  <p class="leading-6">
+    You can now collaborate with them seamlessly within your business account.
+    If you need to adjust their permissions, you can manage their role from your
+    dashboard.
+  </p>
+
+  <x-spacer height="10px" />
+
+  <x-button href="@{{url}}">Manage Team</x-button>
+
+  <p class="leading-6">
+    If you didn’t expect this acceptance, please review your team settings or
+    contact support.
+  </p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Best, <br />@{{app}}</p>
+</x-main>

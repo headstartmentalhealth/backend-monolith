@@ -1,0 +1,227 @@
+---
+title: 'Your Purchase Was Successful! 🎉'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+
+    <table align="center">
+      <tr>
+        <td class="max-w-full">
+          <table class="w-full">
+            
+            <tr role="separator">
+              <td class="leading-8">&zwj;</td>
+            </tr>
+            <tr>
+              <td class="w-full sm:px-0 text-left">
+                <table class="w-full">
+                  <tr>
+                    <td class="pb-8">
+                      <table class="w-full">
+                        <tr>
+                          <td>
+                            <h2 class="m-0 mb-6 text-black text-2xl leading-15">
+                              Hi @{{name}},<br />
+                            </h2>
+
+                            <p class="m-0 mb-2 text-lg text-black">
+                              Thank you for your purchase! We’re excited to confirm that your payment has been successfully processed.
+                            </p>
+
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="pb-2 sm:px-0 text-left">
+                <div>
+                  <span class="text-base font-bold text-black">
+                    Reference:
+                  </span>
+
+                  <span class="text-base text-black">&nbsp; @{{payment_id}}</span>
+                </div><br/>
+                <div>
+                  <span class="text-base font-bold text-black">
+                    Date:
+                  </span>
+
+                  <span class="text-base text-black">&nbsp; @{{payment_date}}</span>
+                </div>
+              
+                <x-spacer height="14px" />
+
+            
+                <table class="table-auto text-black w-full">
+                  <thead class="border-2 border-black">
+                    <tr class="py-3 border-2">
+                      <th
+                        class="py-3 text-xl pr-3"
+                        style="border-bottom: 1.5px solid black"
+                        colspan="3"
+                      >
+                        Summary
+                      </th>
+                      
+                    </tr>
+                  </thead>
+                  <thead class="mt-5">
+                    <tr class="mt-10">
+                      <th
+                        class="pt-7 pr-3 text-gray-500"
+                      >
+                        Product
+                      </th>
+                      <th
+                        class="pt-7 pr-3 text-gray-500"
+                      >
+                        Quantity
+                      </th>
+                      <th
+                        class="pt-7 pr-3 text-gray-500"
+                      >
+                      Price
+                      </th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @{{#each items}}
+                    <tr>
+                      <td
+                        class="pr-6 pt-3 pb-3 max-w-lg text-wrap text-lg font-extrabold"
+                      >
+                        @{{name}} @{{#if tier_name}} <br/>(@{{tier_name}}) @{{/if}} 
+                      </td>
+                      <td
+                        class="pr-6 pt-3 pb-3 align-bottom text-lg font-medium"
+                      >
+                        @{{quantity}}
+                      </td>
+                      <td
+                        class="pr-6 pt-3 pb-3 align-bottom text-lg font-medium"
+                      >
+                        @{{price}}
+                      </td>
+                    </tr>
+                    @{{/each}}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td
+                        colspan="2"
+                        class="text-right pr-6 py-2 align-bottom text-lg font-bold"
+                      >
+                        Subtotal:
+                      </td>
+                      <td
+                        class="text-right pr-6 py-2 align-bottom text-lg font-medium"
+                      >
+                        @{{sub_total}}
+                      </td>
+                    </tr>
+                    @{{#if discount_applied}}
+                    <tr>
+                      <td
+                        colspan="2"
+                        class="text-right pr-6 py-2 align-bottom text-lg font-bold"
+                      >
+                        Discount amount:
+                      </td>
+                      <td
+                        class="text-right pr-6 py-2 align-bottom text-lg font-medium"
+                      >
+                        -@{{discount_applied}}
+                      </td>
+                    </tr>
+                    @{{/if}}
+                   
+                    <tr>
+                      <td
+                        colspan="2"
+                        class="text-right pr-6 py-3 align-bottom text-lg font-bold"
+                      >
+                        Total:
+                      </td>
+                      <td
+                        class="text-right pr-6 py-3 align-bottom text-lg font-medium"
+                      >
+                        @{{total}}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <table class="w-full">
+                  <tr>
+                    <td
+                      class="w-1/2 pr-2 sm:px-0 sm:pb-8 sm:w-full sm:inline-block align-top"
+                    >
+                      <table class="w-full">
+                        <tr>
+                          <td class="p-2">
+                            <h2
+                              class="m-0 text-xl leading-6 text-black font-extrabold"
+                            >
+                              Payment details
+                            </h2>
+
+                            <x-spacer
+                              height="10px"
+                              style="border-bottom: 1px solid black"
+                            />
+
+                            <div class="text-black mt-2">
+                              <p class="text-lg mb-3">
+                                <b>Payment status:</b><br/>@{{payment_status}}</b>
+                              </p>
+                              <p class="text-lg">
+                                <b>Payment method:</b><br/> @{{gateway}}
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td
+                      class="w-1/2 pl-2 sm:px-0 sm:w-full sm:inline-block align-top"
+                    >
+                      <table class="w-full">
+                        <tr>
+                          <td class="p-2">
+                            <h2
+                              class="m-0 text-xl leading-6 text-black font-extrabold"
+                            >
+                              Sold by
+                            </h2>
+
+                            <x-spacer
+                              height="10px"
+                              style="border-bottom: 1px solid black"
+                            />
+
+                            <div class="text-black mt-2">
+                              <p class="text-lg">
+                                <b>Business name:</b><br/>
+                                @{{business_name}}</p>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</x-main>

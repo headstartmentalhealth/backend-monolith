@@ -1,0 +1,1608 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Log {
+  id         String    @id @default(uuid())
+  user_id    String?   @db.VarChar(36)
+  action     Action
+  entity     String
+  entity_id  String?
+  metadata   Json
+  ip_address String?
+  user_agent String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  deleted_at DateTime?
+  user       User?     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("logs")
+}
+
+model RoleGroup {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+  roles       Role[]
+
+  @@index([name])
+  @@map("role_groups")
+}
+
+model Role {
+  id            String    @id @default(uuid())
+  name          String    @unique
+  role_group_id String
+  description   String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  role_id       String    @unique
+  deleted_at    DateTime?
+  role_group    RoleGroup @relation(fields: [role_group_id], references: [id])
+  users         User[]
+
+  @@index([role_id])
+  @@index([role_group_id])
+  @@map("roles")
+}
+
+enum JoinedVia {
+  IMPORT
+  PURCHASE
+  SOCIAL_MEDIA
+  INVITATION
+}
+
+model User {
+  id                       String                  @id @default(uuid())
+  name                     String                  @db.VarChar(255)
+  email                    String                  @unique @db.VarChar(320)
+  password_hash            String?
+  phone                    String?                 @unique @db.VarChar(20)
+  is_email_verified         Boolean                 @default(false)
+  is_phone_verified         Boolean                 @default(false)
+  is_first_signup           Boolean                 @default(true)
+  created_at               DateTime                @default(now())
+  updated_at               DateTime                @updatedAt
+  deleted_at               DateTime?
+  role_identity            String?                 @db.VarChar(255)
+  is_suspended             Boolean?                @default(false)
+  suspended_by             String?                 @db.VarChar(36)
+  suspended_at             DateTime?
+  suspension_reason        String?                 @db.Text
+  signin_option            String?                 @default("INTERNAL")
+  alternative_phone        String?
+  referral_source          String?
+
+  billing_info             BillingInformation[]
+  business_contacts        BusinessContact[]
+  business_info            BusinessInformation[]
+  cart                     Cart?
+  coupon_usages            CouponUsage[]
+  coupons                  Coupon[]
+  courses                  Course[]
+  email_verification       EmailVerification?
+  enrolled_courses         EnrolledCourse[]
+  logs                     Log[]
+  module_contents          ModuleContent[]
+  modules                  Module[]
+  multimedia               Multimedia[]
+  notification_devices     NotificationDevice[]
+  notification_recipients  NotificationRecipient[]
+  onboarding_status        OnboardingStatus[]
+  otp                      Otp?
+  password_resets          PasswordReset[]
+  payments                 Payment[]
+  product_categories       ProductCategory[]
+  products                 Product[]
+  profile                  Profile?
+  purchased_tickets        PurchasedTicket[]
+  rate_limits              RateLimit[]
+  sessions                 Session[]
+  social_logins            SocialLogin[]
+  subscription_plan_prices SubscriptionPlanPrice[]
+  subscription_plan_roles  SubscriptionPlanRole[]
+  subscription_plans       SubscriptionPlan[]
+  subscriptions            Subscription[]
+  course_progress          UserCourseProgress[]
+  role                     Role?                   @relation(fields: [role_identity], references: [id])
+  instantNotifications     Notification[]          @relation("instant_notification_recipients")
+  notifications             Notification[]
+  notification_tokens       NotificationToken[]
+
+  // Relations
+  initiated_chats          Chat[]       @relation("initiator_chats")
+  buddy_chats              Chat[]       @relation("buddy_chats")
+  sent_messages            ChatMessage[] @relation("sent_messages")
+  received_messages        ChatMessage[] @relation("received_messages")
+  chat_groups              ChatGroupMember[]
+  created_chat_groups      ChatGroup[]
+  withdraw_requests       WithdrawRequest[]
+  paystack_recipient      PaystackRecipient?
+  reviews                 Review[]
+  kyc_reviewed            Kyc[]                   @relation("KycReviewer")
+  kyc_user                Kyc[]                   @relation("KycUser")
+  purchased_digital_products            PurchasedDigitalProduct[]
+  currency_rate_created                 CurrencyRate[]           
+  allowed_currencies_created            AllowedCurrency[]
+  business_account_currencies_created   BusinessAccountCurrency[]
+  business_product_enabled_currencies_created   BusinessProductEnabledCurrency[]
+
+  @@index([email])
+  @@index([phone])
+  @@index([role_identity])
+  @@map("users")
+}
+
+model Profile {
+  id              String    @id @default(uuid())
+  user_id         String    @unique @db.VarChar(36)
+  profile_picture  String?   @db.VarChar(2048)
+  address         String?   @db.VarChar(255)
+  bio             String?
+  date_of_birth   DateTime?
+  gender          Gender?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  deleted_at      DateTime?
+  country         String?   @db.VarChar(255)
+  state           String?   @db.VarChar(255)
+  country_code    String?   @default("NG") @db.Char(2)
+  country_dial_code String? 
+  user            User      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("profile")
+}
+
+model Session {
+  id            String    @id @default(uuid())
+  user_id       String    @db.VarChar(36)
+  session_token String    @unique @db.VarChar(255)
+  expires_at    DateTime
+  created_at    DateTime  @default(now())
+  deleted_at    DateTime?
+  updated_at    DateTime  @updatedAt
+  user          User      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("sessions")
+}
+
+model PasswordReset {
+  id         String    @id @default(uuid())
+  user_id    String    @db.VarChar(36)
+  token      String    @unique @db.VarChar(255)
+  expires_at DateTime
+  created_at DateTime  @default(now())
+  deleted_at DateTime?
+  updated_at DateTime  @updatedAt
+  user       User      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("password_resets")
+}
+
+model RateLimit {
+  id            String    @id @default(uuid())
+  user_id       String?   @db.VarChar(36)
+  ip_address    String    @db.VarChar(45)
+  attempt_count Int       @default(0)
+  last_attempt  DateTime  @default(now())
+  deleted_at    DateTime?
+  createdAt     DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  user          User?     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("rate_limits")
+}
+
+model SocialLogin {
+  id          String    @id @default(uuid())
+  user_id     String    @db.VarChar(36)
+  provider    Provider?
+  provider_id String    @unique
+  createdAt   DateTime  @default(now())
+  deleted_at  DateTime?
+  updated_at  DateTime  @updatedAt
+  user        User      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("social_logins")
+}
+
+model EmailVerification {
+  id                 String    @id @default(uuid())
+  user_id            String    @unique @db.VarChar(36)
+  verification_token String?    @unique
+  expires_at         DateTime?  @db.Timestamptz(6)
+  is_verified        Boolean   @default(false)
+  created_at         DateTime  @default(now())
+  deleted_at         DateTime?
+  updated_at         DateTime  @updatedAt
+  user               User      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("email_verifications")
+}
+
+model OnboardingStatus {
+  id           String              @id @default(uuid())
+  user_id      String              @db.VarChar(36)
+  current_step Int                 @default(1)
+  is_completed Boolean             @default(false)
+  created_at   DateTime            @default(now())
+  updated_at   DateTime            @updatedAt
+  deleted_at   DateTime?
+  business_id  String              @unique @db.VarChar(36)
+  onboard_processes Json?
+  business     BusinessInformation @relation(fields: [business_id], references: [id])
+  user         User                @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, business_id])
+  @@index([user_id])
+  @@index([business_id])
+  @@map("onboarding_status")
+}
+
+model BusinessInformation {
+  id                 String             @id @default(uuid())
+  user_id            String             @db.VarChar(36)
+  business_name      String             @unique @db.VarChar(255)
+  business_size      BusinessSize
+  business_slug      String?            @db.VarChar(36)
+  business_description  String?
+  timeline           String             @default("Africa/Lagos") @db.VarChar(100)
+  logo_url           String?            @db.VarChar(2048)
+  industry           String             @db.VarChar(255)
+  working_hours      String?            @db.VarChar(255)
+  location           String?            @db.VarChar(255)
+  scope              String?            @db.VarChar(255)
+  created_at         DateTime           @default(now())
+  updated_at         DateTime           @updatedAt
+  deleted_at         DateTime?
+  country            String?            @default("Nigeria") @db.VarChar(255)
+  state              String?            @db.VarChar(255)
+  country_code       String?            @default("NG") @db.Char(2)
+  social_media_handles  Json?
+  enable_special_offer  Boolean?
+
+  business_contacts  BusinessContact[]
+  user               User               @relation(fields: [user_id], references: [id])
+  business_wallet    BusinessWallet[]
+  coupons            Coupon[]
+  courses            Course[]
+  module_contents    ModuleContent[]
+  modules            Module[]
+  multimedia         Multimedia[]
+  notifications      Notification[]
+  onboarding_status  OnboardingStatus?
+  products           Product[]
+  subscription_plans SubscriptionPlan[]
+  withdrawal_account WithdrawalAccount?
+  paystack_recipient           PaystackRecipient?
+  withdraw_requests            WithdrawRequest[]
+  kyc                          Kyc[]
+  currencies         BusinessAccountCurrency[]
+  product_currencies  BusinessProductEnabledCurrency[]
+  payments            Payment[]
+  subscriptions       Subscription[]
+
+  @@index([user_id])
+  @@index([business_name])
+  @@map("business_information")
+}
+
+model BusinessWallet {
+  id               String              @id @default(uuid())
+  business_id      String              @db.VarChar(36)
+  balance          Decimal             @default(0.00) @db.Decimal(15, 2)
+  previous_balance Decimal             @default(0.00) @db.Decimal(15, 2)
+  currency         String              @default("NGN") @db.VarChar(3)
+  currency_url     String?              
+  created_at       DateTime            @default(now())
+  updated_at       DateTime            @updatedAt
+  deleted_at       DateTime?
+  business         BusinessInformation @relation(fields: [business_id], references: [id])
+
+  @@index([business_id])
+  @@unique([business_id, currency])
+  @@map("business_wallets")
+}
+
+model BusinessContact {
+  id          String              @id @default(uuid())
+  business_id String              @db.VarChar(36)
+  user_id     String?             @db.VarChar(36)
+  is_owner    Boolean             @default(false)
+  joined_at   DateTime?           @default(now())
+  status      MemberStatus        @default(pending)
+  token       String?             @unique @db.VarChar(255)
+  expires_at  DateTime?
+  created_at  DateTime            @default(now())
+  updated_at  DateTime            @updatedAt
+  deleted_at  DateTime?
+  email       String              @db.VarChar(255)
+  name        String?             @db.VarChar(255)
+  role        String              @default("business-administrator")
+  joined_via  JoinedVia?
+  business    BusinessInformation @relation(fields: [business_id], references: [id])
+  user        User?               @relation(fields: [user_id], references: [id])
+
+  @@index([business_id])
+  @@map("business_contacts")
+}
+
+model Otp {
+  id         String    @id @default(uuid())
+  user_id    String    @unique @db.VarChar(36)
+  otp        String
+  expires_at DateTime  @db.Timestamptz(6)
+  created_at DateTime  @default(now())
+  deleted_at DateTime?
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("otps")
+}
+
+model WithdrawalAccount {
+  id             String              @id @default(uuid())
+  business_id    String              @unique @db.VarChar(36)
+  account_number String              @db.VarChar(255)
+  account_type   String?              @db.VarChar(100)
+  bank_name      String              @db.VarChar(255)
+  bank_code      String?              @db.VarChar(255)
+  routing_number String?             @db.VarChar(255)
+  country        String              @default("Nigeria") @db.VarChar(255)
+  country_code   String              @default("NG") @db.Char(2)
+  currency       String              @default("NGN") @db.VarChar(255)
+  recipient_code String?        
+  created_at     DateTime            @default(now())
+  updated_at     DateTime            @updatedAt
+  deleted_at     DateTime?
+  business       BusinessInformation @relation(fields: [business_id], references: [id], onDelete: Cascade)
+
+  @@index([business_id])
+  @@map("withdrawal_accounts")
+}
+
+model SubscriptionPlan {
+  id                       String                  @id @default(uuid())
+  product_id               String?                 @unique @db.VarChar(255)
+  name                     String                  @db.VarChar(255)
+  description              String?
+  cover_image              String?                 @db.VarChar(2048)
+  business_id              String                  @db.VarChar(255)
+  created_at               DateTime                @default(now())
+  updated_at               DateTime                @updatedAt
+  deleted_at               DateTime?
+  creator_id               String                  @db.VarChar(255)
+  payments                 Payment[]
+  subscription_plan_prices SubscriptionPlanPrice[]
+  subscription_plan_roles  SubscriptionPlanRole[]
+  business                 BusinessInformation     @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  creator                  User                    @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  subscriptions            Subscription[]
+  chat_groups              ChatGroup[]
+  product                  Product?    @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@unique([name, business_id])
+  @@index([name])
+  @@index([business_id])
+  @@index([creator_id])
+  @@index([product_id])
+  @@map("subscription_plans")
+}
+
+model SubscriptionPlanPrice {
+  id                   String             @id @default(uuid())
+  subscription_plan_id String             @db.VarChar(255)
+  price                Decimal            @db.Decimal(10, 2)
+  currency             String             @default("NGN") @db.Char(3)
+  creator_id           String             @db.VarChar(255)
+  period               SubscriptionPeriod
+
+  /// Array of objects in this shape:
+  /// e.g: [{ currency: "USD", price: 10.00 }]
+  other_currencies  Json?  
+
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
+  deleted_at           DateTime?
+  creator              User               @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  subscription_plan    SubscriptionPlan   @relation(fields: [subscription_plan_id], references: [id], onDelete: Cascade)
+  cart_item            CartItem[]           
+
+  @@index([subscription_plan_id])
+  @@index([creator_id])
+  @@map("subscription_plan_prices")
+}
+
+model SubscriptionPlanRole {
+  id                   String           @id @default(uuid())
+  subscription_plan_id String           @db.VarChar(255)
+  creator_id           String           @db.VarChar(255)
+  title                String           @db.VarChar(255)
+  role_id              String           @db.VarChar(255)
+  created_at           DateTime         @default(now())
+  updated_at           DateTime         @updatedAt
+  deleted_at           DateTime?
+  selected             Boolean          @default(false)
+  creator              User             @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  subscription_plan    SubscriptionPlan @relation(fields: [subscription_plan_id], references: [id], onDelete: Cascade)
+
+  @@unique([title, role_id])
+  @@index([subscription_plan_id])
+  @@index([creator_id])
+  @@map("subscription_plan_roles")
+}
+
+model Coupon {
+  id            String              @id @default(uuid())
+  code          String              @unique
+  type          CouponType
+  creator_id    String              @db.VarChar(255)
+  business_id   String              @db.VarChar(255)
+  value         Float
+  start_date    DateTime
+  end_date      DateTime
+  usage_limit   Int
+  user_limit    Int
+  min_purchase  Float
+  is_active     Boolean             @default(true)
+  created_at    DateTime            @default(now())
+  updated_at    DateTime            @updatedAt
+  deleted_at    DateTime?
+  currency      String              @default("NGN") @db.Char(3)
+  coupon_usages CouponUsage[]
+  business      BusinessInformation @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  creator       User                @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@unique([code, business_id])
+  @@index([creator_id])
+  @@index([business_id])
+  @@map("coupons")
+}
+
+model CouponUsage {
+  id               String    @id @default(uuid())
+  coupon_id        String    @db.VarChar(255)
+  user_id          String    @db.VarChar(255)
+  discount_applied Decimal   @db.Decimal(10, 2)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  deleted_at       DateTime?
+  coupon           Coupon    @relation(fields: [coupon_id], references: [id], onDelete: Cascade)
+  user             User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([coupon_id])
+  @@index([user_id])
+  @@map("coupon_usages")
+}
+
+model BillingInformation {
+  id           String    @id @default(uuid())
+  user_id      String    @db.VarChar(36)
+  address      String
+  state        String    @db.VarChar(255)
+  apartment    String?   @db.VarChar(255)
+  postal_code  String    @db.VarChar(11)
+  city         String    @db.VarChar(255)
+  country      String    @default("Nigeria") @db.VarChar(255)
+  country_code String    @default("NG") @db.Char(2)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  deleted_at   DateTime?
+  selected     Boolean?  @default(false)
+  user         User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  payments     Payment[]
+
+  @@index([user_id])
+  @@map("billing_information")
+}
+
+model Subscription {
+  id                         String             @id @default(uuid())
+  user_id                    String             @db.VarChar(36)
+  plan_id                    String             @db.VarChar(36)
+  plan_name_at_subscription  String             @db.VarChar(255)
+  plan_price_at_subscription Decimal            @db.Decimal(10, 2)
+  start_date                 DateTime
+  end_date                   DateTime
+  is_active                  Boolean            @default(true)
+  payment_method             PaymentMethod
+  billing_interval           SubscriptionPeriod
+  business_id                String?            @db.VarChar(36)
+  next_payment_date          DateTime?
+  next_payment_amount        Decimal?            @db.Decimal(10, 2)
+  auto_renew                 Boolean            @default(true)
+  created_at                 DateTime           @default(now())
+  updated_at                 DateTime           @updatedAt
+  deleted_at                 DateTime?
+  currency                   String             @default("NGN") @db.Char(3)
+  grace_end_date             DateTime
+  charge_auth_code           String?            @db.VarChar(255)
+  subscription_plan          SubscriptionPlan   @relation(fields: [plan_id], references: [id], onDelete: Cascade)
+  user                       User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  subscription_payments      SubscriptionPayment[]
+
+  business_info                    BusinessInformation?   @relation(fields: [business_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([plan_id])
+  @@map("subscriptions")
+}
+
+model SubscriptionPayment {
+  id                         String             @id @default(uuid())
+  subscription_id            String?            @db.VarChar(255)
+  payment_id                 String?            @db.VarChar(36)
+  amount                     Decimal            @db.Decimal(10, 2)
+  currency                   String             @default("NGN") @db.Char(3)
+  created_at                 DateTime           @default(now())
+  updated_at                 DateTime           @updatedAt
+  deleted_at                 DateTime?
+
+  payment                    Payment?   @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+  subscription               Subscription?   @relation(fields: [subscription_id], references: [id], onDelete: Cascade)
+
+  @@index([subscription_id])
+  @@map("subscription_payments")
+}
+
+model Payment {
+  id                   String              @id @default(uuid())
+  user_id              String?              @db.VarChar(36)
+  business_id          String?             @db.VarChar(36)
+  withdraw_request_id  String?             @db.VarChar(36)
+  purchase_type        PurchaseType?       
+  purchase_id          String?             @db.VarChar(36) /* Useful for subscription purchase */
+  gross_amount         Decimal?             @db.Decimal(10, 2)
+  amount               Decimal             @db.Decimal(10, 2)
+  final_amount          Decimal?             @db.Decimal(10, 2)
+  fee_amount           Decimal?             @db.Decimal(10, 2)
+  fee_percent          Decimal?             @db.Decimal(10, 2)
+  discount_applied     Decimal             @default(0.00) @db.Decimal(10, 2)
+  payment_status       PaymentStatus
+  transaction_id       String?             @unique @db.VarChar(255)
+  access_code          String?             @unique @db.VarChar(255)
+  payment_method       PaymentMethod?
+  created_at           DateTime            @default(now())
+  updated_at           DateTime            @updatedAt
+  deleted_at           DateTime?
+  billing_at_payment   Json?
+  billing_id           String?             @db.VarChar(36)
+  interval             SubscriptionPeriod?
+  currency             String              @default("NGN") @db.Char(3)
+  auto_renew           Boolean?            @default(false)
+  is_renewal           Boolean?            @default(false)
+  is_upgrade           Boolean?            @default(false)
+  metadata             Json? /* Useful for withdrawals and whatnot */
+  purchase             Json? /* Useful for other digital products purchase */
+  transaction_type     TransactionType?
+  payment_gateway_logs PaymentGatewayLog[]
+  billing_info         BillingInformation? @relation(fields: [billing_id], references: [id], onDelete: Cascade)
+  user                 User?                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  subscription_plan    SubscriptionPlan?   @relation(fields: [purchase_id], references: [id], onDelete: Cascade, map: "subscription_fk")
+  refunds              Refund[]
+  business_info        BusinessInformation? @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  withdraw_request     WithdrawRequest?     @relation(fields: [withdraw_request_id], references: [id], onDelete: Cascade)
+  subscription_payments        SubscriptionPayment[]
+  purchased_digital_products  PurchasedDigitalProduct[]
+  enrolled_courses     EnrolledCourse[]
+  purchased_tickets    PurchasedTicket[]
+
+  @@index([user_id])
+  @@index([purchase_type])
+  @@index([purchase_id])
+  @@index([payment_status])
+  @@map("payments")
+}
+
+model Refund {
+  id            String        @id @default(uuid())
+  payment_id    String        @db.VarChar(36)
+  amount        Decimal       @db.Decimal(10, 2)
+  reason        String?       @db.VarChar(255)
+  status        RefundStatus
+  type          RefundType    @default(REFUND)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  deleted_at    DateTime?
+  refund_method PaymentMethod
+  payment       Payment       @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@index([payment_id])
+  @@index([status])
+  @@map("refunds")
+}
+
+model PaymentGatewayLog {
+  id         String    @id @default(uuid())
+  payment_id String
+  event_type String    @db.VarChar(50)
+  payload    Json
+  metadata   Json?
+  error      String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  payment    Payment   @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@index([payment_id])
+  @@index([event_type])
+  @@map("payment_gateway_logs")
+}
+
+model Notification {
+  id            String                 @id @default(uuid())
+  title         String                 @db.VarChar(255)
+  message       String
+  status        Boolean                @default(true)
+  read          Boolean                @default(false)
+  icon_url      String?                @default("https://doexcess.com/favicon.ico")
+  is_scheduled  Boolean                @default(false)
+  business_id   String?                @db.VarChar(36)
+  owner_id      String?                @db.VarChar(36)
+  created_at    DateTime               @default(now())
+  updated_at    DateTime               @updatedAt
+  deleted_at    DateTime?
+  type          NotificationType
+  account_role  String?   // Some certain business admins of a business dir should see it.
+
+  business      BusinessInformation?    @relation(fields: [business_id], references: [id])
+  schedule_info ScheduledNotification?
+  recipients    User[]                 @relation("instant_notification_recipients")
+  owner         User?                  @relation(fields: [owner_id], references: [id])
+
+  @@index([business_id])
+  @@map("notifications")
+}
+
+model NotificationDevice {
+  id          String                  @id @default(uuid())
+  user_id     String                  @db.VarChar(36)
+  device_type String
+  push_token  String
+  platform    PlatformType            @default(Firebase)
+  created_at  DateTime                @default(now())
+  updated_at  DateTime                @updatedAt
+  deleted_at  DateTime?
+  user        User                    @relation(fields: [user_id], references: [id])
+  recipients  NotificationRecipient[]
+
+  @@index([user_id])
+  @@map("notification_devices")
+}
+
+model NotificationTemplate {
+  id         String    @id @default(uuid())
+  title      String    @db.VarChar(255)
+  body       String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("notification_templates")
+}
+
+model ScheduledNotification {
+  id              String                  @id @default(uuid())
+  notification_id String                  @unique @db.VarChar(36)
+  scheduled_time  DateTime
+  status          NotificationStatus
+  created_at      DateTime                @default(now())
+  updated_at      DateTime                @updatedAt
+  deleted_at      DateTime?
+  recipients      NotificationRecipient[]
+  notification    Notification            @relation(fields: [notification_id], references: [id])
+
+  @@index([notification_id])
+  @@map("scheduled_notifications")
+}
+
+model NotificationRecipient {
+  id                        String                @id @default(uuid())
+  scheduled_notification_id String                @db.VarChar(36)
+  user_id                   String                @db.VarChar(36)
+  device_id                 String?               @db.VarChar(36)
+  received_at               DateTime
+  status                    NotificationStatus
+  created_at                DateTime              @default(now())
+  updated_at                DateTime              @updatedAt
+  deleted_at                DateTime?
+  device                    NotificationDevice?   @relation(fields: [device_id], references: [id])
+  scheduled_notification    ScheduledNotification @relation(fields: [scheduled_notification_id], references: [id])
+  user                      User                  @relation(fields: [user_id], references: [id])
+
+  @@index([scheduled_notification_id, user_id, device_id])
+  @@map("notification_recipients")
+}
+
+model Course {
+  id            String               @id @default(uuid())
+  business_id   String               @db.VarChar(36)
+  title         String               @db.VarChar(255)
+  description   String?
+  keywords      String?
+  metadata      Json?
+  status        CourseStatus         @default(DRAFT)
+  published_at  DateTime?
+  archived_at   DateTime?
+  creator_id    String               @db.VarChar(36)
+  created_at    DateTime             @default(now())
+  updated_at    DateTime             @updatedAt
+  deleted_at    DateTime?
+  multimedia_id String               @unique @db.VarChar(36)
+  price         Decimal              @db.Decimal(15, 2)
+  business_info BusinessInformation  @relation(fields: [business_id], references: [id])
+  creator       User                 @relation(fields: [creator_id], references: [id])
+ 
+
+  @@index([business_id])
+  @@index([creator_id])
+  @@index([status])
+  @@map("courses")
+}
+
+model Module {
+  id            String              @id @default(uuid())
+  course_id     String              @db.VarChar(36)
+  title         String              @db.VarChar(255)
+  position      Int
+  creator_id    String              @db.VarChar(36)
+  business_id   String              @db.VarChar(36)
+  created_at    DateTime            @default(now())
+  updated_at    DateTime            @updatedAt
+  deleted_at    DateTime?
+  contents      ModuleContent[]
+  business_info BusinessInformation @relation(fields: [business_id], references: [id])
+  course        Product             @relation(fields: [course_id], references: [id])
+  creator       User                @relation(fields: [creator_id], references: [id])
+
+  @@index([course_id])
+  @@index([business_id])
+  @@index([creator_id])
+  @@map("modules")
+}
+
+model ModuleContent {
+  id            String               @id @default(uuid())
+  title         String               @db.VarChar(255)
+  module_id     String               @db.VarChar(36)
+  creator_id    String               @db.VarChar(36)
+  business_id   String               @db.VarChar(36)
+  multimedia_id String               @db.VarChar(36)
+  position      Int
+  created_at    DateTime             @default(now())
+  updated_at    DateTime             @updatedAt
+  deleted_at    DateTime?
+  business_info BusinessInformation  @relation(fields: [business_id], references: [id])
+  creator       User                 @relation(fields: [creator_id], references: [id])
+  module        Module               @relation(fields: [module_id], references: [id])
+  multimedia    Multimedia           @relation(fields: [multimedia_id], references: [id])
+  progress      UserCourseProgress[]
+
+  @@index([module_id])
+  @@index([business_id])
+  @@index([creator_id])
+  @@index([multimedia_id])
+  @@map("module_contents")
+}
+
+model Multimedia {
+  id                             String               @id @default(uuid())
+  url                            String
+  creator_id                     String?              @db.VarChar(50)
+  business_id                    String?              @db.VarChar(50)
+  created_at                     DateTime             @default(now())
+  updated_at                     DateTime             @updatedAt
+  deleted_at                     DateTime?
+  provider                       MultimediaProvider
+  type                           MultimediaType
+  contents                       ModuleContent[]
+  business_info                  BusinessInformation? @relation(fields: [business_id], references: [id])
+  creator                        User?                @relation(fields: [creator_id], references: [id])
+  products                       Product[]            @relation("multimedia")   
+  products_raw                   Product[]            @relation("multimedia_zip_file")   
+  chat_groups                    ChatGroup[]
+  physical_product_media         PhysicalProductMedia[]
+
+  @@index([creator_id])
+  @@index([business_id])
+  @@map("multimedia")
+}
+
+model EnrolledCourse {
+  id                String           @id @default(uuid())
+  enrolled_at       DateTime         @default(now())
+  progress          Int              @default(0)
+  status            EnrollmentStatus @default(ACTIVE)
+  payment_id        String?          @db.VarChar(36)
+  amount            Decimal?          @db.Decimal(10, 2)
+  currency          String?           @default("NGN") @db.Char(3)
+  quantity          Int              @default(1)
+  created_at        DateTime         @default(now())
+  updated_at        DateTime         @updatedAt
+  deleted_at        DateTime?
+  completed_lessons Int              @default(0)
+  course_id         String           @db.VarChar(50)
+  total_lessons     Int              @default(0)
+  user_id           String           @db.VarChar(50)
+  course            Product          @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  user              User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  payment           Payment?         @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, course_id])
+  @@map("enrolled_courses")
+}
+
+model UserCourseProgress {
+  id                String        @id @default(uuid())
+  user_id           String        @db.VarChar(36)
+  course_id         String        @db.VarChar(36)
+  module_content_id String        @db.VarChar(36)
+  completed_at      DateTime?     @default(now())
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+  deleted_at        DateTime?
+  course            Product        @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  module_content    ModuleContent @relation(fields: [module_content_id], references: [id], onDelete: Cascade)
+  user              User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, module_content_id])
+  @@index([course_id])
+  @@map("user_course_progress")
+}
+
+model Cart {
+  id         String     @id @default(uuid())
+  user_id    String     @unique @db.VarChar(36)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  deleted_at DateTime?
+  user       User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  items      CartItem[]
+
+  @@index([user_id])
+  @@map("cart")
+}
+
+model CartItem {
+  id             String      @id @default(uuid())
+  cart_id        String      @db.VarChar(36)
+  product_id     String      @db.VarChar(36)
+  product_type   ProductType
+  currency       String?     @default("NGN")
+  quantity       Int
+  price_at_time  Decimal     @db.Decimal(10, 2)
+  created_at     DateTime    @default(now())
+  deleted_at     DateTime?
+  updated_at     DateTime    @updatedAt
+  course_id      String?     @db.VarChar(36)
+  digital_product_id      String?     @db.VarChar(36)
+  ticket_tier_id          String?     @db.VarChar(36)
+  subscription_plan_price_id String?     @db.VarChar(36)
+  physical_product_id        String?     @db.VarChar(36)
+  metadata            Json? 
+
+  product             Product?    @relation("cart_product", fields: [product_id], references: [id], onDelete: Cascade)
+  cart                Cart        @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  course              Product?    @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  digital_product         Product?    @relation("digital_product", fields: [digital_product_id], references: [id], onDelete: Cascade)
+  ticket_tier         TicketTier? @relation(fields: [ticket_tier_id], references: [id], onDelete: Cascade)
+  subscription_plan_price    SubscriptionPlanPrice? @relation(fields: [subscription_plan_price_id], references: [id], onDelete: Cascade)
+  physical_product    Product?      @relation("physical_product", fields: [physical_product_id], references: [id], onDelete: Cascade)
+
+  @@unique([cart_id, product_id, currency])
+  @@index([cart_id])
+  @@index([product_id])
+  @@index([digital_product_id])
+  @@index([course_id])
+  @@index([ticket_tier_id])
+  @@index([subscription_plan_price_id])
+  @@index([physical_product_id])
+  @@map("cart_items")
+}
+
+model ProductCategory {
+  id         String    @id @default(uuid())
+  name       String    @unique
+  creator_id String?   @db.VarChar(36)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  creator    User?     @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  products   Product[]
+
+  @@map("product_categories")
+}
+
+model Product {
+  id             String              @id @default(uuid())
+  sku            String?             @db.VarChar(36)
+  business_id    String              @db.VarChar(36)
+  category_id    String              @db.VarChar(36)
+  creator_id     String              @db.VarChar(36)
+  title          String              @db.VarChar(255)
+  slug           String?             @unique @db.VarChar(255)
+  description    String?
+  keywords       String?
+  metadata       Json?
+  type           ProductType
+  status         ProductStatus       @default(DRAFT)
+  readiness_percent Int?
+  published_at   DateTime?
+  archived_at    DateTime?
+  price          Decimal?            @db.Decimal(10, 2)
+  currency       String?             @default("NGN") @db.VarChar(3)
+  original_price Decimal?            @db.Decimal(10, 2)
+  multimedia_id  String?              @db.VarChar(36)
+  multimedia_zip_id  String?              @db.VarChar(36)
+
+  /// Array of objects in this shape:
+  /// e.g: [{ currency: "USD", price: 10.00, original_price: 15.00 }]
+  other_currencies  Json?     
+              
+  created_at     DateTime            @default(now())
+  updated_at     DateTime            @updatedAt
+  deleted_at     DateTime?
+
+  cart_items     CartItem[]
+  enrolled       EnrolledCourse[]
+  modules        Module[]
+  business_info  BusinessInformation? @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  category       ProductCategory?     @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  creator        User?                @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  multimedia     Multimedia?          @relation("multimedia", fields: [multimedia_id], references: [id], onDelete: Cascade)
+  zip_file        Multimedia?          @relation("multimedia_zip_file", fields: [multimedia_zip_id], references: [id], onDelete: Cascade)
+  ticket         Ticket?
+  progress       UserCourseProgress[]
+  reviews        Review[]
+  subscription_plan   SubscriptionPlan?
+  purchased_digital_products  PurchasedDigitalProduct[]
+  digital_product_cart_items  CartItem[]  @relation("digital_product")
+  cart_item   CartItem[]  @relation("cart_product")  
+  physical_product    PhysicalProduct?  @relation("physical_product") 
+  physical_product_cart_items   CartItem[] @relation("physical_product")
+
+  @@index([category_id])
+  @@index([business_id])
+  @@index([creator_id])
+  @@index([multimedia_id])
+  @@map("products")
+}
+
+model Ticket {
+  id                String            @id @default(uuid())
+  product_id        String            @unique @db.VarChar(36)
+  event_time        String?
+  event_start_date  DateTime?
+  event_end_date    DateTime?
+  event_location    String?
+  event_type        EventType
+  auth_details      String?
+  created_at        DateTime          @default(now())
+  updated_at        DateTime          @updatedAt
+  deleted_at        DateTime?
+  purchased_tickets PurchasedTicket[]
+  ticket_tiers      TicketTier[]
+  product           Product           @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@index([product_id])
+  @@map("tickets")
+}
+
+model TicketTier {
+  id                 String            @id @default(uuid())
+  ticket_id          String            @db.VarChar(36)
+  name               String            @db.VarChar(255)
+  description        String?
+  quantity           Int?
+  remaining_quantity Int?
+  max_per_purchase   Int?
+  default_view       Boolean           @default(false)
+  status             TicketTierStatus  @default(OPEN)
+  created_at         DateTime          @default(now())
+  updated_at         DateTime          @updatedAt
+  deleted_at         DateTime?
+  currency           String?           @default("NGN") @db.VarChar(3)
+  amount             Decimal?          @db.Decimal(10, 2)
+  original_amount    Decimal?          @db.Decimal(10, 2)
+  
+  /// Array of objects in this shape:
+  /// e.g: [{ currency: "USD", price: 10.00, original_price: 15.00 }]
+  other_currencies  Json?  
+
+  cart_item          CartItem[]
+  purchased_tickets  PurchasedTicket[]
+  ticket             Ticket?            @relation(fields: [ticket_id], references: [id], onDelete: Cascade)
+
+  @@unique([ticket_id, name])
+  @@index([ticket_id])
+  @@map("ticket_tiers")
+}
+
+model PurchasedTicket {
+  id             String     @id @default(uuid())
+  user_id        String     @db.VarChar(36)
+  ticket_id      String     @db.VarChar(36)
+  ticket_tier_id String     @db.VarChar(36)
+  quantity       Int        @default(1)
+  amount         Decimal?    @db.Decimal(10, 2)
+  currency       String?     @default("NGN") @db.Char(3)
+  payment_id     String?    @db.VarChar(36)
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
+  deleted_at     DateTime?
+  ticket         Ticket     @relation(fields: [ticket_id], references: [id], onDelete: Cascade)
+  ticket_tier    TicketTier @relation(fields: [ticket_tier_id], references: [id], onDelete: Cascade)
+  user           User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  payment        Payment?   @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, ticket_tier_id])
+  @@index([user_id])
+  @@index([ticket_id])
+  @@index([ticket_tier_id])
+  @@map("purchased_tickets")
+}
+
+model Chat {
+  id            String        @id @default(uuid())
+  last_message   String?
+  last_message_at DateTime?
+  is_archived    Boolean       @default(false)
+  unread        Json          // Stores ChatUnreadSchema[]
+  is_group      Boolean        @default(false)
+
+  created_at               DateTime                @default(now())
+  updated_at               DateTime                @updatedAt
+  deleted_at               DateTime?
+  
+  // Relations
+  initiator     User?          @relation("initiator_chats", fields: [initiator_id], references: [id])
+  initiator_id   String?        
+  chat_buddy     User?          @relation("buddy_chats", fields: [chat_buddy_id], references: [id])
+  chat_buddy_id   String?
+
+  chat_group_id   String?       @unique @db.VarChar(36)
+  chat_group      ChatGroup?    @relation(fields: [chat_group_id], references: [id])
+
+  messages        ChatMessage[]
+
+  @@index([chat_group_id])
+  @@unique([initiator_id, chat_buddy_id])
+
+  @@map("chats")
+}
+
+model ChatGroup {
+  id                          String        @id @default(uuid())
+  name                        String        @unique
+  description                 String?
+  multimedia_id               String?
+  auto_created                Boolean       @default(true)
+  subscription_plan_id        String? 
+  creator_id                  String?
+
+  created_at                  DateTime                @default(now())
+  updated_at                  DateTime                @updatedAt
+  deleted_at                  DateTime?
+
+  multimedia                  Multimedia?                @relation(fields: [multimedia_id], references: [id])
+  subscription_plan           SubscriptionPlan?          @relation(fields: [subscription_plan_id], references: [id])
+  creator                     User?                      @relation(fields: [creator_id], references: [id])
+  group_members               ChatGroupMember[]
+  chat                        Chat?
+  chat_messages               ChatMessage[]              @relation("group_messages")            
+
+  @@index([name])
+  @@index([multimedia_id])
+  @@index([subscription_plan_id])
+
+  @@map("chat_groups")
+}
+
+model ChatGroupMember {
+  id                          String        @id @default(uuid())
+  member_id                   String       
+  is_admin                    Boolean       @default(false)
+  group_id                    String
+  created_at                  DateTime                @default(now())
+  updated_at                  DateTime                @updatedAt
+  deleted_at                  DateTime?
+
+  chat_group                  ChatGroup?     @relation(fields: [group_id], references: [id])
+  member                      User?          @relation(fields: [member_id], references: [id])
+
+  @@index([member_id])
+  @@index([group_id])
+  @@map("chat_group_members")
+}
+
+model ChatMessage {
+  id                       String        @id @default(uuid())
+  message                  String?
+  file                      String?
+  read                     Boolean       @default(false)
+  created_at               DateTime                @default(now())
+  updated_at               DateTime                @updatedAt
+  deleted_at               DateTime?
+  
+  // Relations
+  chat          Chat          @relation(fields: [chat_id], references: [id])
+  chat_id        String
+  initiator     User          @relation("sent_messages", fields: [initiator_id], references: [id])
+  initiator_id   String
+  chat_buddy     User?          @relation("received_messages", fields: [chat_buddy_id], references: [id])
+  chat_buddy_id   String?
+  chat_group      ChatGroup?    @relation("group_messages", fields: [chat_group_id], references: [id])
+  chat_group_id   String?
+
+  @@index([chat_id])
+  @@index([initiator_id])
+  @@index([chat_buddy_id])
+
+  @@map("chat_messages")
+
+}
+
+model NotificationToken {
+  id          String    @id @default(uuid())
+  device_type  String
+  token       String    @unique
+  is_active    Boolean   @default(true)
+  created_at  DateTime   @default(now()) 
+  updated_at  DateTime   @updatedAt 
+  deleted_at  DateTime? 
+  
+  // Relations
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id      String
+
+  @@index([user_id])
+
+  @@map("notification_tokens")
+}
+
+model WithdrawRequest {
+  id                       String   @id @default(uuid())
+  requested_user_id        String   @db.VarChar(36)
+  business_id              String   @db.VarChar(36)
+  amount                   Decimal  @db.Decimal(10, 2)
+  charge                   Decimal?  @db.Decimal(10, 2)
+  currency                 String   @default("NGN") @db.Char(3)
+  status                   String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  notes                    String?
+  processed_by             String?  @db.VarChar(36)
+  processed_at             DateTime?
+  created_at               DateTime @default(now())
+  updated_at               DateTime @updatedAt
+  deleted_at               DateTime?
+
+  requested_by             User?     @relation(fields: [requested_user_id], references: [id], onDelete: Cascade)
+  business                 BusinessInformation?     @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  payment                  Payment[]
+
+  @@index([requested_user_id])
+  @@index([business_id])
+  @@map("withdrawal_requests")
+}
+
+model PaystackRecipient {
+  id             String   @id @default(uuid())
+  user_id        String?   @unique @db.VarChar(36)
+  business_id    String   @unique @db.VarChar(36)
+  recipient_code String   @db.VarChar(100)
+  account_number String
+  bank_code      String
+  name           String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  deleted_at     DateTime?
+
+  user           User?     @relation(fields: [user_id], references: [id])
+  business       BusinessInformation?     @relation(fields: [business_id], references: [id])
+
+  @@map("paystack_recipients")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  rating      Int
+  title       String?
+  content     String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  deleted_at   DateTime?
+  
+  // Relations
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id      String
+  
+  product     Product? @relation(fields: [product_id], references: [id])
+  product_id   String?
+  
+  // Validation
+  @@index([user_id])
+  @@index([product_id])
+  @@map("reviews")
+}
+
+model Kyc {
+  id                 String   @id @default(uuid())
+  business_id        String?  @db.VarChar(36)
+  user_id            String?  @db.VarChar(36)
+  doc_front          String?   @db.VarChar(2048)
+  doc_back           String?   @db.VarChar(2048)
+  utility_doc        String?   @db.VarChar(2048)
+  location           String   @db.VarChar(255)
+  state              String   @db.VarChar(255)
+  city               String   @db.VarChar(255)
+  country            String   @db.VarChar(255)
+  country_code       String?  @default("NG") @db.Char(2)
+  id_type            String   @db.VarChar(100)
+  is_approved        Boolean  @default(false)
+  disapproval_reason String?  @db.VarChar(255)
+  reviewed_by        String?  @db.VarChar(36)
+  reviewed_at        DateTime? 
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now()) @updatedAt
+  deleted_at         DateTime?
+
+  business           BusinessInformation? @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  user               User? @relation("KycUser", fields: [user_id], references: [id], onDelete: Cascade)
+  reviewer           User? @relation("KycReviewer", fields: [reviewed_by], references: [id], onDelete: Cascade)
+
+  @@index([business_id])
+  @@index([user_id])
+  @@map("kyc")
+}
+
+model PurchasedDigitalProduct {
+  id             String     @id @default(uuid())
+  user_id        String     @db.VarChar(36)
+  product_id      String     @db.VarChar(36)
+  payment_id      String?   @db.VarChar(36)
+  quantity       Int        @default(1)
+  amount         Decimal?            @db.Decimal(10, 2)
+  currency       String?             @default("NGN") @db.Char(3)
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
+  deleted_at     DateTime?
+  product         Product?     @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  user           User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  payment        Payment?   @relation(fields: [payment_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, product_id])
+  @@index([user_id])
+  @@index([product_id])
+  @@map("purchased_digital_products")
+}
+
+model CurrencyRate {
+  id                    String      @id @default(uuid())
+  base_currency         String      @db.VarChar(3) @default("NGN")
+  foreign_currency      String      @db.VarChar(3)
+  base_to_foreign_rate  Decimal?    @db.Decimal(10, 6)
+  foreign_to_base_rate  Decimal?    @db.Decimal(10, 2)
+  creator_id            String?     @db.VarChar(36)
+  created_at            DateTime    @default(now())
+  updated_at            DateTime    @updatedAt
+  deleted_at            DateTime?
+
+  creator               User?         @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@unique([base_currency, foreign_currency])
+  @@index([creator_id])
+  @@map("currency_rates")
+}
+
+model AllowedCurrency {
+  id                      String      @id @default(uuid())
+  currency                String      @unique @db.VarChar(3)
+  currency_sign           String?     @db.VarChar(3)
+  currency_url            String?
+  charge                  Decimal     @db.Decimal(10, 2)
+  additional_flat_amount   Decimal?    @db.Decimal(10, 2)
+  creator_id              String?     @db.VarChar(36)
+  enabled                 Boolean     @default(true)
+  created_at              DateTime    @default(now())
+  updated_at              DateTime    @updatedAt
+  deleted_at              DateTime?
+
+  creator               User?         @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@index([currency, currency_sign])
+  @@index([creator_id])
+  @@map("allowed_currencies")
+}
+
+model BusinessAccountCurrency {
+  id                      String      @id @default(uuid())
+  business_id             String      @db.VarChar(36)
+  currency                String      @db.VarChar(3)
+  currency_sign           String?     @db.VarChar(3)
+  currency_url            String?
+  creator_id              String?     @db.VarChar(36)
+  created_at              DateTime    @default(now())
+  updated_at              DateTime    @updatedAt
+  deleted_at              DateTime?
+
+  business                BusinessInformation?    @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  creator                 User?    @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@unique([business_id, currency, currency_sign])
+  @@map("business_account_currencies")
+}
+
+model BusinessProductEnabledCurrency {
+  id                      String      @id @default(uuid())
+  business_id             String      @db.VarChar(36)
+  currency                String      @db.VarChar(3)
+  currency_sign           String?     @db.VarChar(3)
+  currency_url            String?
+  creator_id              String?     @db.VarChar(36)
+  created_at              DateTime    @default(now())
+  updated_at              DateTime    @updatedAt
+  deleted_at              DateTime?
+
+  business                BusinessInformation?    @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  creator                 User?    @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@unique([business_id, currency, currency_sign])
+  @@map("business_product_enabled_currencies")
+}
+
+model PhysicalProduct {
+  id                      String        @id @default(uuid())
+  product_id              String        @unique @db.VarChar(36)
+  sizes                   Json?
+  colors                  Json?
+  location                String
+  stock                   Int
+  type                    PhysicalProductType   @default(product)
+  
+  gender                  PhysicalProductGender
+  estimated_production_time   Int?
+  min_required            Int?
+  created_at              DateTime            @default(now())
+  updated_at              DateTime            @updatedAt
+  deleted_at              DateTime?
+
+  product                 Product?    @relation("physical_product", fields: [product_id], references: [id], onDelete: Cascade)
+  media                   PhysicalProductMedia[]
+
+
+  @@index([product_id])
+  @@map("physical_products")
+}
+
+model PhysicalProductMedia {
+  id                      String              @id @default(uuid())
+  multimedia_id           String              @db.VarChar(36)
+  physical_product_id     String              @db.VarChar(36)
+  created_at              DateTime            @default(now())
+  updated_at              DateTime            @updatedAt
+  deleted_at              DateTime?
+
+  multimedia              Multimedia?         @relation(fields: [multimedia_id], references: [id], onDelete: Cascade)
+  physical_product        PhysicalProduct?    @relation(fields: [physical_product_id], references: [id], onDelete: Cascade)
+
+  @@map("physical_product_media")
+}
+
+enum PhysicalProductType {
+  product
+  bespoke
+}
+
+enum PhysicalProductGender {
+  male
+  female
+  unisex
+}
+
+enum Action {
+  CREATE
+  UPDATE
+  DELETE
+  INITATE_REGISTRATION
+  RESEND_VERIFICATION
+  LOGIN
+  RESET_PASSWORD
+  BUSINESS_ONBOARDING
+  WITHDRAWAL_ACCOUNT
+  CONTACT_INVITATION
+  MANAGE_CONTACT
+  SUBSCRIPTION_PLAN
+  SUBSCRIPTION_PLAN_PRICE
+  SUBSCRIPTION_PLAN_ROLE
+  MANAGE_COUPON
+  USE_COUPON
+  MANAGE_BILLING
+  CUSTOMER_REGISTRATION
+  SUBSCRIPTION_INITIATION
+  SUBSCRIPTION_PAYMENT
+  SUBSCRIPTION_RENEWAL_INITIATION
+  SUBSCRIPTION_UPGRADE_INITIATION
+  CUSTOM_EMAIL_NOTIFICATION
+  CUSTOM_WHATSAPP_NOTIFICATION
+  MANAGE_COURSE
+  MANAGE_COURSE_MODULE
+  MANAGE_MODULE_CONTENT
+  MANAGE_MULTIMEDIA
+  COURSE_PAYMENT_INITIATION
+  TICKET_PAYMENT_INITIATION
+  COURSE_PAYMENT_CONFIRMATION
+  TICKET_PAYMENT_CONFIRMATION
+  PRODUCT_PAYMENT_INITIATION
+  PRODUCT_PAYMENT_CONFIRMATION
+  OPERATE_CART
+  UPDATE_COURSE_PROGRESS
+  MANAGE_PRODUCT_CATEGORY
+  MANAGE_TICKET
+  SUSPEND_UNSUSPEND_BUSINESS
+  SUSPEND_UNSUSPEND_USER
+  BUSINESS_WITHDRAWAL
+  MANAGE_DIGITAL_PRODUCT
+  PRODUCT_PAYMENT_CANCELLATION
+  MANAGE_PHYSICAL_PRODUCT
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum Provider {
+  google
+  facebook
+}
+
+enum BusinessSize {
+  small
+  medium
+  large
+}
+
+enum MemberStatus {
+  active
+  pending
+  expired
+  suspended
+}
+
+enum SubscriptionPeriod {
+  monthly
+  quarterly
+  semi_annually
+  yearly
+  free
+}
+
+enum CouponType {
+  PERCENTAGE
+  FLAT
+}
+
+/// @description Payment method types
+enum PaymentMethod {
+  PAYSTACK
+  FLUTTERWAVE
+}
+
+enum PurchaseType {
+  SUBSCRIPTION
+  COURSE
+  TICKET
+  PRODUCT 
+  DIGITAL_PRODUCT
+}
+
+enum TransactionType {
+  WITHDRAWAL
+  CREDIT
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+  CANCELLED
+}
+
+enum RefundStatus {
+  PENDING
+  PROCESSED
+  FAILED
+  CANCELLED
+}
+
+enum RefundType {
+  REFUND
+  CHARGEBACK
+}
+
+enum NotificationType {
+  EMAIL
+  PUSH
+  WHATSAPP
+}
+
+enum PlatformType {
+  Web_Push
+  Firebase
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  DELIVERED
+}
+
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum MultimediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+enum MultimediaProvider {
+  CLOUDINARY
+  AWS_S3
+  S3
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+}
+
+enum ProductType {
+  COURSE
+  TICKET
+  SUBSCRIPTION
+  DIGITAL_PRODUCT
+  PHYSICAL_PRODUCT
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EventType {
+  ONLINE
+  PHYSICAL
+  HYBRID
+}
+
+enum TicketTierStatus {
+  CLOSED
+  OPEN
+}

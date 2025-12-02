@@ -1,0 +1,36 @@
+---
+title: '⚠️ Account Suspension Notice for Your Business Account'
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Dear @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    This is to inform you that your business account
+    <b>@{{account_id}}</b> has been suspended effective immediately due to a
+    policy-related issue.
+  </p>
+
+  <p class="leading-6">
+    This action was taken as a result of <b>@{{suspension_reason}}</b>. While
+    your account is suspended, access to platform features and transactions will
+    be temporarily unavailable.
+  </p>
+
+  <p class="leading-6">
+    If you believe this was a mistake or you’d like to resolve this matter,
+    please contact our support team at @{{support_email}}. We're here to help
+    you sort things out and get back on track.
+  </p>
+
+  <x-spacer height="10px" />
+
+  <p class="leading-6">Thank you for your understanding and cooperation. 🤝</p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Warm regards, <br />The @{{app}} Team</p>
+</x-main>

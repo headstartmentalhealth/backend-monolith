@@ -1,0 +1,50 @@
+---
+title: 'Welcome to @{{business_name}}! Your onboarding is complete'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    We’re excited to let you know that your onboarding with <a href="@{{business_page}}"><b>@{{business_name}}</b></a> is now complete! 🎉
+  </p>
+  <p class="leading-6">
+    You’re now part of a community that values innovation, support, and growth. We’re here to help you make the most of your experience, so if you have any questions or need assistance, don’t hesitate to reach out.
+  </p>
+
+  <p class="leading-6">
+    <strong>Your login credentials:</strong>
+    <ul class="mb-4">
+      <li><strong>Email:</strong> @{{email}}</li>
+      <li><strong>Password:</strong> @{{password}}</li>
+      <li><strong>Login URL:</strong> @{{login_url}}</li>
+    </ul>
+    <span class="text-xs text-gray-500">For your security, please change your password after your first login.</span>
+  </p>
+
+  <p class="leading-6">
+    Here’s what you can do next:
+    <ol>
+      <li class="m-0 leading-6">
+        Explore your dashboard and available features
+      </li>
+      <li class="m-0 leading-6">
+        View the digital offerings from <a href="@{{business_page}}"><b>@{{business_name}}</b></a>
+      </li>
+      <li class="m-0 leading-6">
+        Update your profile to personalize your experience
+      </li>
+      <li class="m-0 leading-6">
+        Connect with our support team if you need any help
+      </li>
+    </ol>
+  </p>
+
+  <p class="m-0 leading-6">
+    Thank you for choosing @{{business_name}}. We look forward to supporting you on your journey!
+  </p>
+</x-main>

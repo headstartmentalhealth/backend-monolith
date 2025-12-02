@@ -1,0 +1,57 @@
+---
+title: 'Contact message'
+preheader: 'A new message from @{{name}}.'
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-6 text-2xl sm:leading-8 text-black font-semibold">
+    Hi Administrator,
+  </h1>
+
+  <p class="m-0 leading-6">Here is a new message</p>
+
+  <x-spacer height="24px" />
+
+  <p class="m-0 leading-6">Below were the information provided:</p>
+
+  <div class="p-3 my-3 italic bg-gray-50">
+    <div class="mb-1">
+      <dt class="text-gray-600 md:text-lg">Inquiry</dt>
+      <dt class="text-lg font-medium">@{{inquiry}}</dt>
+    </div>
+
+    <div class="mb-1">
+      <dt class="text-gray-600 md:text-lg">Description</dt>
+      <dt class="text-lg font-medium">@{{description}}</dt>
+    </div>
+
+    <div class="mb-1">
+      <dt class="text-gray-600 md:text-lg">Name</dt>
+      <dt class="text-lg font-medium">@{{name}}</dt>
+    </div>
+
+    <div class="mb-1">
+      <dt class="text-gray-600 md:text-lg">Organization</dt>
+      <dt class="text-lg font-medium">@{{organization}}</dt>
+    </div>
+
+    <div>
+      <dt class="text-gray-600 md:text-lg">Email address</dt>
+      <dt class="text-lg font-medium">@{{email}}</dt>
+    </div>
+
+    <div>
+      <dt class="text-gray-600 md:text-lg">Phone</dt>
+      <dt class="text-lg font-medium">@{{phone}}</dt>
+    </div>
+
+    <div>
+      <dt class="text-gray-600 md:text-lg">Message</dt>
+      <dt class="text-lg font-medium">@{{message}}</dt>
+    </div>
+  </div>
+
+  <br />
+  <x-button href="@{{url}}"> Write Back &rarr; </x-button>
+</x-main>

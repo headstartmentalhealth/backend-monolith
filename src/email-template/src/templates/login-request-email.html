@@ -1,0 +1,35 @@
+---
+title: '🔐 Your Login OTP is Here!'
+preheader: ''
+bodyClass: bg-slate-50
+---
+
+<x-main>
+  <h1 class="m-0 mb-4 text-xl sm:leading-8 text-black font-semibold">
+    Hi @{{name}},
+  </h1>
+
+  <p class="m-0 leading-6">
+    We noticed you're trying to log in to your account—great to have you back!
+    🎉 <br />To keep your account secure, please use the One-Time Password (OTP)
+    below:
+  </p>
+
+  <x-spacer height="10px" />
+
+  <p class="tracking-1 text-md font-bold">🔑 Your OTP: @{{otp}}</p>
+
+  <p class="leading-6">
+    ⏳ This OTP is valid for 5 minutes only, so make sure to use it quickly!
+    <br />
+    If you didn’t request this login, no worries! Simply ignore this email or
+    let us know.<br />
+    🚨 Important: For your safety, never share your OTP with anyone.
+  </p>
+  <p></p>
+  <p></p>
+
+  <x-divider space-y="32px" class="bg-slate-200" />
+
+  <p class="m-0">Cheers, <br />The @{{app}} Team</p>
+</x-main>
