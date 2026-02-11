@@ -6,8 +6,10 @@ import { ConfigService } from '@nestjs/config';
 import {
   BusinessInformation,
   Payment,
+  MultimediaType,
   PaymentStatus,
   Prisma,
+  ProductType,
   PurchaseType,
   TransactionType,
 } from '@prisma/client';
@@ -101,6 +103,30 @@ export class OwnerService {
         },
       });
 
+      // 5. Total library materials
+      const total_library_materials = await prisma.multimedia.count({
+        where: {
+          type: MultimediaType.DOCUMENT,
+          ...withDeleted(),
+        },
+      });
+
+      // 6. Total audio contents
+      const total_audio_contents = await prisma.multimedia.count({
+        where: {
+          type: MultimediaType.AUDIO,
+          ...withDeleted(),
+        },
+      });
+
+      // 7. Total blog posts
+      const total_blog_posts = await prisma.product.count({
+        where: {
+          type: ProductType.DIGITAL_PRODUCT,
+          ...withDeleted(),
+        },
+      });
+
       return {
         statusCode: HttpStatus.OK,
         data: {
@@ -108,6 +134,9 @@ export class OwnerService {
           total_revenue,
           total_product_orders,
           total_withdrawals,
+          total_library_materials,
+          total_audio_contents,
+          total_blog_posts,
         },
       };
     });

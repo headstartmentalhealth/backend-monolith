@@ -334,7 +334,7 @@ export class PaymentService {
                 {
                   purchase: {
                     path: ['business_id'],
-                    equals: businessId,
+                    string_contains: businessId,
                   },
                 },
                 {
@@ -2293,6 +2293,7 @@ export class PaymentService {
         const payment = await prisma.payment.create({
           data: {
             user_id, // Must come from business context
+            business_id: request['business_id'] || request['Business-Id'],
             amount: amount,
             payment_status: PaymentStatus.PENDING,
             transaction_type: TransactionType.WITHDRAWAL,

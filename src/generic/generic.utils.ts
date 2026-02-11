@@ -505,7 +505,7 @@ export const businessIdFilter = (business_id: string) => {
     {
       purchase: {
         path: ['business_id'],
-        equals: business_id,
+        string_contains: business_id,
       },
     },
     {

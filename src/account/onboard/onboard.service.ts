@@ -869,7 +869,7 @@ export class OnboardService {
             {
               purchase: {
                 path: ['business_id'],
-                equals: param.id,
+                string_contains: param.id,
               },
             },
             {
@@ -885,7 +885,7 @@ export class OnboardService {
           payment_status: PaymentStatus.SUCCESS,
           purchase: {
             path: ['business_id'],
-            equals: param.id,
+            string_contains: param.id,
           },
         },
       }),
@@ -1155,7 +1155,7 @@ export class OnboardService {
       const purchaseCount = await prisma.payment.count({
         where: {
           OR: [
-            { purchase: { path: ['business_id'], equals: businessId } },
+            { purchase: { path: ['business_id'], string_contains: businessId } },
             { subscription_plan: { business_id: businessId } },
           ],
         },
@@ -1315,7 +1315,7 @@ export class OnboardService {
               some: {
                 purchase: {
                   path: ['business_id'],
-                  equals: req['Business-Id'],
+                  string_contains: req['Business-Id'],
                 },
               },
             },

@@ -52,7 +52,7 @@
     "@nestjs/typeorm": "^10.0.1",
     "@nestjs/websockets": "^10.3.9",
     "@paypal/checkout-server-sdk": "^1.0.3",
-    "@prisma/client": "^6.2.1",
+    "@prisma/client": "^6.19.0",
     "@types/crypto-js": "^4.2.2",
     "@types/xlsx": "^0.0.36",
     "aws-sdk": "^2.1692.0",

@@ -37,7 +37,7 @@ export class ContactController {
    * @returns
    */
   @Post('invite')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   async inviteMember(
     @Req() req: AuthPayload & Request,
     @Body() inviteContactDto: InviteContactDto,
@@ -68,7 +68,7 @@ export class ContactController {
    * @returns
    */
   @Get('invites/:business_id')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   async getInvites(
     @Req() request: AuthPayload,
     @Param() param: { business_id: string },
@@ -95,7 +95,7 @@ export class ContactController {
    * @returns
    */
   @Post('reinvite-member/:invite_id')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   async reinviteMember(
     @Req() request: AuthPayload & Request,
     @Param() param: ContactDto,
@@ -109,7 +109,7 @@ export class ContactController {
    * @returns
    */
   @Post('remove-member/:invite_id')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   async removeMember(
     @Req() request: AuthPayload & Request,
     @Param() param: ContactDto,
@@ -123,7 +123,7 @@ export class ContactController {
    * @returns
    */
   @Post('deactivate-member/:invite_id')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   async deactivateMember(
     @Req() request: AuthPayload & Request,
     @Param() param: ContactDto,
@@ -137,7 +137,7 @@ export class ContactController {
    * @returns
    */
   @Post('restore-member/:invite_id')
-  @Roles(Role.BUSINESS_SUPER_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.OWNER_SUPER_ADMIN)
   @HttpCode(HttpStatus.OK)
   async restoreMember(
     @Req() request: AuthPayload & Request,
@@ -196,7 +196,7 @@ export class ContactController {
    * @returns
    */
   @Get('fetch-contacts')
-  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.BUSINESS_ADMIN)
+  @Roles(Role.BUSINESS_SUPER_ADMIN, Role.BUSINESS_ADMIN, Role.OWNER_SUPER_ADMIN, Role.OWNER_ADMIN)
   async getBusinessContacts(
     @Req() request: AuthPayload,
     @Query() filterUserDto: FilterContactsDto,

@@ -119,6 +119,7 @@ model User {
   instantNotifications     Notification[]          @relation("instant_notification_recipients")
   notifications             Notification[]
   notification_tokens       NotificationToken[]
+  resources                 Resource[]
 
   // Relations
   initiated_chats          Chat[]       @relation("initiator_chats")
@@ -137,6 +138,7 @@ model User {
   allowed_currencies_created            AllowedCurrency[]
   business_account_currencies_created   BusinessAccountCurrency[]
   business_product_enabled_currencies_created   BusinessProductEnabledCurrency[]
+  blog_posts                BlogPost[]
 
   @@index([email])
   @@index([phone])
@@ -297,7 +299,9 @@ model BusinessInformation {
   currencies         BusinessAccountCurrency[]
   product_currencies  BusinessProductEnabledCurrency[]
   payments            Payment[]
+  blog_posts          BlogPost[]
   subscriptions       Subscription[]
+  resources           Resource[]
 
   @@index([user_id])
   @@index([business_name])
@@ -1462,6 +1466,8 @@ enum Action {
   MANAGE_DIGITAL_PRODUCT
   PRODUCT_PAYMENT_CANCELLATION
   MANAGE_PHYSICAL_PRODUCT
+  MANAGE_RESOURCE
+  MANAGE_BLOG_POST
 }
 
 enum Gender {
@@ -1567,6 +1573,7 @@ enum CourseStatus {
 enum MultimediaType {
   IMAGE
   VIDEO
+  AUDIO
   DOCUMENT
 }
 
@@ -1605,4 +1612,61 @@ enum EventType {
 enum TicketTierStatus {
   CLOSED
   OPEN
+}
+model Resource {
+  id            String             @id @default(uuid())
+  title         String             @db.VarChar(255)
+  description   String?            @db.Text
+  resource_type ResourceType
+  content_url   String?            @db.VarChar(2048)
+  cover_image   String?            @db.VarChar(2048)
+  category      String?            @db.VarChar(255)
+  age_range     String?            @db.VarChar(50)
+  topic         String?            @db.VarChar(255)
+  minutes       Int?
+  business_id   String?            @db.VarChar(36)
+  creator_id    String             @db.VarChar(36)
+  
+  created_at    DateTime           @default(now())
+  updated_at    DateTime           @updatedAt
+  deleted_at    DateTime?
+
+  business_info BusinessInformation? @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  creator       User                @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+
+  @@index([business_id])
+  @@index([resource_type])
+  @@map("resources")
+}
+
+enum ResourceType {
+  AFFIRMATIVE
+  LIBRARY
+  PODCAST
+}
+model BlogPost {
+  id            String             @id @default(uuid())
+  title         String             @db.VarChar(255)
+  slug          String             @unique @db.VarChar(255)
+  content       String             @db.Text
+  excerpt       String?            @db.Text
+  cover_image   String?            @db.VarChar(2048)
+  category      String?            @db.VarChar(255)
+  is_published  Boolean            @default(false)
+  published_at  DateTime?
+  
+  business_id   String?            @db.VarChar(36)
+  author_id     String             @db.VarChar(36)
+  
+  created_at    DateTime           @default(now())
+  updated_at    DateTime           @updatedAt
+  deleted_at    DateTime?
+
+  business_info BusinessInformation? @relation(fields: [business_id], references: [id], onDelete: Cascade)
+  author        User                @relation(fields: [author_id], references: [id], onDelete: Cascade)
+
+  @@index([business_id])
+  @@index([author_id])
+  @@index([slug])
+  @@map("blog_posts")
 }

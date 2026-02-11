@@ -36,6 +36,6 @@ import { TurnstileService } from './providers/cloudflare/turnstile.provider';
     GoogleSSOService,
     TurnstileService,
   ],
-  exports: [AuthService, TurnstileService],
+  exports: [AuthService, TurnstileService, JwtService],
 })
 export class AuthModule {}

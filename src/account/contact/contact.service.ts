@@ -1349,7 +1349,7 @@ export class ContactService {
           {
             purchase: {
               path: ['business_id'],
-              equals: businessId,
+              string_contains: businessId,
             },
           },
           // Payments for subscription plans from this business

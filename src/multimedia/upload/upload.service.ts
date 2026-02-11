@@ -10,8 +10,8 @@ import * as heicConvert from 'heic-convert';
 import { readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { access, readFile, unlink, writeFile } from 'fs/promises';
 import { MultimediaCrudService } from '../crud/crud.service';
-import { AuthPayload } from '@/generic/generic.payload';
-import { MultimediaProvider, MultimediaType } from '@prisma/client';
+import { AuthPayload, GenericPayloadAlias } from '@/generic/generic.payload';
+import { Multimedia, MultimediaProvider, MultimediaType } from '@prisma/client';
 import { AddFileBodyDto } from './upload.dto';
 import path = require('path');
 import { S3_PROVIDER } from './providers/s3';
@@ -219,13 +219,27 @@ export class UploadService {
    * @param file
    * @returns
    */
-  async uploadFile(request: AuthPayload & Request, file: Express.Multer.File) {
-    const uniqueFilename = `${new Date().getTime()}-${file.originalname}`;
-    const s3Response = await this.uploadFileToS3(file, uniqueFilename);
-    return this.multimediaCrudService.create(request, {
-      url: s3Response.Location,
-      type: MultimediaType.DOCUMENT,
-      provider: MultimediaProvider.AWS_S3,
+  async uploadFile(
+    request: AuthPayload & Request,
+    file: Express.Multer.File,
+  ): Promise<GenericPayloadAlias<Multimedia>> {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: 'auto' },
+        async (error, result) => {
+          if (error) return reject(error);
+
+          const response = await this.multimediaCrudService.create(request, {
+            url: result.secure_url,
+            type: MultimediaType.DOCUMENT,
+            provider: MultimediaProvider.CLOUDINARY,
+          });
+
+          resolve(response);
+        },
+      );
+
+      streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
   }
 
@@ -238,7 +252,7 @@ export class UploadService {
     request: AuthPayload & Request,
     file: Express.Multer.File,
     addFileBodyDto?: AddFileBodyDto,
-  ) {
+  ): Promise<GenericPayloadAlias<Multimedia>> {
     return this.uploadFile(request, file);
   }
 

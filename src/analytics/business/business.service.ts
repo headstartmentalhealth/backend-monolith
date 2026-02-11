@@ -164,7 +164,7 @@ export class BusinessAnalyticsService {
               {
                 purchase: {
                   path: ['business_id'],
-                  equals: businessId,
+                  string_contains: businessId,
                 },
               },
               {
@@ -457,7 +457,7 @@ export class BusinessAnalyticsService {
                   {
                     purchase: {
                       path: ['business_id'],
-                      equals: businessId,
+                      string_contains: businessId,
                     },
                   },
                   {
@@ -518,7 +518,7 @@ export class BusinessAnalyticsService {
               {
                 purchase: {
                   path: ['business_id'],
-                  equals: businessId,
+                  string_contains: businessId,
                 },
               },
               {

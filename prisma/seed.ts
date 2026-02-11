@@ -7,6 +7,7 @@ import {
 } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { v4 as uuidv4 } from 'uuid'; // Import uuid from the uuid package
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -138,7 +139,43 @@ async function main() {
       }
     }
 
+
     // await seedBusinessCourses();
+
+    // Create Super Admin User
+    const superAdminEmail = 'headstartconnectmentalhealth@gmail.com';
+    const superAdminPassword = '12345abc';
+    const hashedPassword = await bcrypt.hash(superAdminPassword, 10);
+
+    // Find the Owner Super Administrator role
+    const superAdminRole = roleGroups
+      .find((g) => g.name === 'Owner')
+      ?.roles.find((r) => r.name === 'Owner Super Administrator');
+
+    if (superAdminRole) {
+      const superAdminUser = await prisma.user.upsert({
+        where: { email: superAdminEmail },
+        update: {
+            password_hash: hashedPassword,
+            role_identity: superAdminRole.id,
+            is_email_verified: true,
+            is_suspended: false,
+        },
+        create: {
+          email: superAdminEmail,
+          name: 'Super Admin',
+          password_hash: hashedPassword,
+          role_identity: superAdminRole.id,
+          is_email_verified: true,
+          is_suspended: false,
+          is_first_signup: false,
+        },
+      });
+      console.log('Super Admin user seeded:', superAdminUser.email);
+    } else {
+        console.error('Owner Super Administrator role not found, skipping super admin creation.');
+    }
+
   } catch (error) {
     console.error('Error creating log:', error);
   }

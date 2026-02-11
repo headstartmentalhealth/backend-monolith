@@ -12,7 +12,7 @@ import { NotificationTokenModule } from './token/token.module';
   imports: [
     BullModule.forRoot({
       connection: {
-        url: 'redis://redis_service:6379',
+        url: 'redis://redis_service:6380',
         // 👇 Fix for MaxRetriesPerRequestError
         maxRetriesPerRequest: null,
         enableReadyCheck: false,

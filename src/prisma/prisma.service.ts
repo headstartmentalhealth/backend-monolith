@@ -1,6 +1,6 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { base } from './prisma.middleware';
+import { baseExtension } from './prisma.extension';
 
 @Injectable()
 export class PrismaService
@@ -9,7 +9,7 @@ export class PrismaService
 {
   constructor() {
     super();
-    (this as any).$use(base() as any); // Apply the timezone middleware
+    return this.$extends(baseExtension) as any;
   }
 
   async onModuleInit() {

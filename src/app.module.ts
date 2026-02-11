@@ -27,6 +27,8 @@ import { ChatModule } from './chat/chat.module';
 import { ReviewModule } from './review/review.module';
 import { WithdrawModule } from './withdraw/withdraw.module';
 import { CurrencyModule } from './currency/currency.module';
+import { ResourceModule } from './resource/resource.module';
+import { BlogPostModule } from './blog-post/blog-post.module';
 
 @Module({
   imports: [
@@ -64,6 +66,8 @@ import { CurrencyModule } from './currency/currency.module';
 
     WithdrawModule,
     CurrencyModule,
+    ResourceModule,
+    BlogPostModule,
     // ReviewModule,
   ],
 })
