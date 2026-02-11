@@ -1345,7 +1345,9 @@ export class ContactService {
         user_id: customerId,
         payment_status: PaymentStatus.SUCCESS,
         OR: [
-          // Payments for products from this business
+          // Payments with top-level business_id
+          { business_id: businessId },
+          // Payments for products from this business (legacy/fallback)
           {
             purchase: {
               path: ['business_id'],

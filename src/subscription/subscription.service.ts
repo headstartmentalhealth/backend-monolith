@@ -144,6 +144,7 @@ export class SubscriptionService {
       const paymentRecord = await prisma.payment.create({
         data: {
           user_id: user.id,
+          business_id: plan_price.subscription_plan.business_id,
           purchase_type: PurchaseType.SUBSCRIPTION,
           purchase_id: plan_price.subscription_plan.id,
           amount: final_amount_breakdown.net_amount,
@@ -691,6 +692,7 @@ export class SubscriptionService {
               const saved_payment = await prisma.payment.create({
                 data: {
                   user_id: subscription.user_id,
+                  business_id: subscription.subscription_plan.business_id,
                   purchase_type: PurchaseType.SUBSCRIPTION,
                   purchase_id: subscription.plan_id,
                   amount: subscription.next_payment_amount,

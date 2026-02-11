@@ -615,6 +615,7 @@ export class PaymentService {
       const paymentRecord = await prisma.payment.create({
         data: {
           user_id: user.id,
+          business_id,
           purchase_type: PurchaseType.PRODUCT,
           purchase: {
             items: purchase_details_list, // Store all purchases inside metadata
@@ -645,7 +646,7 @@ export class PaymentService {
         email: user.email,
         amount: computed_total_amount,
         metadata: {
-          user_id: user.id,
+          user_id: user.id, business_id: business.id,
           purchases,
           coupon_id,
           coupon_code,
@@ -657,7 +658,7 @@ export class PaymentService {
       // 3. Create log
       await this.logService.createWithTrx(
         {
-          user_id: user.id,
+          user_id: user.id, business_id: business.id,
           action: Action.PRODUCT_PAYMENT_INITIATION,
           entity: this.model,
           entity_id: paymentRecord.id,
@@ -775,6 +776,7 @@ export class PaymentService {
       return tx.payment.create({
         data: {
           user_id: user.id,
+          business_id: business.id,
           purchase_type: PurchaseType.PRODUCT,
           purchase: {
             items: purchase_details_list,
@@ -814,7 +816,7 @@ export class PaymentService {
 
     // 9️⃣ Create log OUTSIDE transaction (to prevent timeout)
     await this.logService.createLog({
-      user_id: user.id,
+      user_id: user.id, business_id: business.id,
       action: Action.PRODUCT_PAYMENT_INITIATION,
       entity: this.model,
       entity_id: paymentRecord.id,
@@ -2416,7 +2418,7 @@ export class PaymentService {
                   const details =
                     await this.prisma.purchasedDigitalProduct.findFirst({
                       where: {
-                        user_id: user_id,
+                        user_id: user.id, business_id: business.id,
                         product_id: item.product_id,
                         quantity: item.quantity,
                         payment_id: purchases.payment_id,
