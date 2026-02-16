@@ -203,6 +203,62 @@ export class BlogPostService {
     };
   }
 
+  async fetchPublic(
+    filterDto: FilterBlogPostDto,
+  ): Promise<PagePayload<BlogPost>> {
+    const pagination_filters = pageFilter(filterDto);
+
+    const filters: Prisma.BlogPostWhereInput = {
+      ...(filterDto.category && { category: filterDto.category }),
+      is_published: true,
+      ...(filterDto.q && {
+        OR: [
+          {
+            title: { contains: filterDto.q, mode: 'insensitive' },
+          },
+          {
+            content: { contains: filterDto.q, mode: 'insensitive' },
+          },
+        ],
+      }),
+      deleted_at: null,
+    };
+
+    const [blogPosts, total] = await Promise.all([
+      this.blogPostRepository.findManyWithPagination(
+        filters,
+        { ...pagination_filters.pagination_options },
+        Prisma.SortOrder.desc,
+        undefined,
+        this.select,
+      ),
+      this.blogPostRepository.count(filters),
+    ]);
+
+    return {
+      statusCode: HttpStatus.OK,
+      data: blogPosts,
+      count: total,
+    };
+  }
+
+  async fetchSinglePublic(param: IdDto): Promise<GenericDataPayload<BlogPost>> {
+    const blogPost = await this.blogPostRepository.findOne(
+      { id: param.id, is_published: true, deleted_at: null },
+      undefined,
+      this.select,
+    );
+
+    if (!blogPost) {
+      throw new NotFoundException('Blog post not found.');
+    }
+
+    return {
+      statusCode: HttpStatus.OK,
+      data: blogPost,
+    };
+  }
+
   async update(
     request: AuthPayload & Request,
     param: IdDto,

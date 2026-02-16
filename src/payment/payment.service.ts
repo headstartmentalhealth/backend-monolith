@@ -646,7 +646,8 @@ export class PaymentService {
         email: user.email,
         amount: computed_total_amount,
         metadata: {
-          user_id: user.id, business_id: business.id,
+          user_id: user.id,
+          business_id,
           purchases,
           coupon_id,
           coupon_code,
@@ -658,7 +659,7 @@ export class PaymentService {
       // 3. Create log
       await this.logService.createWithTrx(
         {
-          user_id: user.id, business_id: business.id,
+          user_id: user.id,
           action: Action.PRODUCT_PAYMENT_INITIATION,
           entity: this.model,
           entity_id: paymentRecord.id,
@@ -816,7 +817,7 @@ export class PaymentService {
 
     // 9️⃣ Create log OUTSIDE transaction (to prevent timeout)
     await this.logService.createLog({
-      user_id: user.id, business_id: business.id,
+      user_id: user.id,
       action: Action.PRODUCT_PAYMENT_INITIATION,
       entity: this.model,
       entity_id: paymentRecord.id,
@@ -2418,7 +2419,7 @@ export class PaymentService {
                   const details =
                     await this.prisma.purchasedDigitalProduct.findFirst({
                       where: {
-                        user_id: user.id, business_id: business.id,
+                        user_id,
                         product_id: item.product_id,
                         quantity: item.quantity,
                         payment_id: purchases.payment_id,
