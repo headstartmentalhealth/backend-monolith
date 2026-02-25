@@ -103,4 +103,8 @@ export class FilterResourceDto extends QueryDto {
   @IsOptional()
   @Transform(({ value }) => value?.toUpperCase())
   resource_type?: ResourceType;
+
+  @IsString()
+  @IsOptional()
+  topic?: string;
 }

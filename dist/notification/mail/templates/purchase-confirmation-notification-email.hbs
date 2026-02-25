@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <!--[if mso]>
+      <noscript>
+        <xml>
+          <o:OfficeDocumentSettings xmlns:o="urn:schemas-microsoft-com:office:office">
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+          </o:OfficeDocumentSettings>
+        </xml>
+      </noscript>
+      <style>
+        td, th, div, p, a, h1, h2, h3, h4, h5, h6 {
+          font-family: "Segoe UI", sans-serif;
+          mso-line-height-rule: exactly;
+        }
+      </style>
+    <![endif]-->
+    <title>New Purchase Alert! 🎉</title>
+    <style>
+      .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .flex {
+        display: flex;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .hover-important-text-decoration-underline:hover {
+        text-decoration: underline !important;
+      }
+      @media (max-width: 600px) {
+        .sm-my-8 {
+          margin-top: 32px !important;
+          margin-bottom: 32px !important;
+        }
+        .sm-mb-8 {
+          margin-bottom: 32px !important;
+        }
+        .sm-mt-12 {
+          margin-top: 48px !important;
+        }
+        .sm-inline-block {
+          display: inline-block !important;
+        }
+        .sm-w-full {
+          width: 100% !important;
+        }
+        .sm-px-0 {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+        .sm-px-4 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+        .sm-pb-8 {
+          padding-bottom: 32px !important;
+        }
+      }
+      [dir="rtl"] *) > :not([hidden]) ~ :not([hidden]) {
+        --tw-space-x-reverse: 1 !important;
+      }
+      [dir="rtl"] *) {
+        text-align: right !important;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; width: 100%; background-color: #f8fafc; padding: 0; -webkit-font-smoothing: antialiased; word-break: break-word">
+    <div role="article" aria-roledescription="email" aria-label="New Purchase Alert! 🎉" lang="en">
+      <div
+        class="sm-px-4"style="background-color: #f8fafc; font-family: ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, sans-serif;"
+      >
+        <table align="center" cellpadding="0" cellspacing="0" role="none">
+          <tr>
+            <td style="width: 600px; max-width: 100%">
+              <table class="sm-mt-12 sm-mb-8" style="margin-bottom: 48px; margin-top: 20px; width: 100%" cellpadding="0" cellspacing="0" role="none">
+                <tr>
+                  <td class="sm-px-4" style="border-radius: 4px; background-color: #fff; padding: 32px; font-size: 16px; color: #334155; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05)">
+                    <div class="sm-my-8" style="margin-bottom: 28px; margin-top: 20px">
+                      {{#if is_client_logo}}
+                      <a href style="color: #4045e1"><img src="{{logo}}" width="60" style="max-width: 100%; vertical-align: middle; line-height: 1" alt=""></a>
+                      {{else}}
+                      <a href style="color: #4045e1"><img src="{{logo}}" width="150" style="max-width: 100%; vertical-align: middle; line-height: 1" alt=""></a>
+                      {{/if}}
+                    </div>
+                    <table align="center" cellpadding="0" cellspacing="0" role="none">
+                      <tr>
+                        <td style="max-width: 100%">
+                          <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                            <tr role="separator">
+                              <td style="line-height: 32px">&zwj;</td>
+                            </tr>
+                            <tr>
+                              <td class="sm-px-0" style="width: 100%; text-align: left">
+                                <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                                  <tr>
+                                    <td style="padding-bottom: 32px">
+                                      <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                                        <tr>
+                                          <td>
+                                            <h2 style="margin: 0 0 24px; font-size: 24px; color: #000">
+                                              Hi {{business_owner_name}}, <br>
+                                            </h2>
+                                            <p style="margin: 0 0 8px; font-size: 18px; color: #000">Great news! A customer just made a purchase from your store. Here’s a quick summary of the order</p>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="sm-px-0" style="padding-bottom: 8px; text-align: left">
+                                <div>
+                                  <span style="font-size: 16px; font-weight: 700; color: #000">Reference:</span>
+                                  <span style="font-size: 16px; color: #000">&nbsp; {{payment_id}}</span>
+                                </div>
+                                <br>
+                                <div>
+                                  <span style="font-size: 16px; font-weight: 700; color: #000">Date:</span>
+                                  <span style="font-size: 16px; color: #000">&nbsp; {{payment_date}}</span>
+                                </div>
+                                <div role="separator" style="line-height: 14px">&zwj;</div>
+                                <table style="width: 100%; table-layout: auto; color: #000" cellpadding="0" cellspacing="0" role="none">
+                                  <thead style="border-width: 2px; border-color: #000">
+                                    <tr style="border-width: 2px; padding-top: 12px; padding-bottom: 12px">
+                                      <th style="padding-top: 12px; padding-bottom: 12px; padding-right: 12px; font-size: 20px; border-bottom: 1.5px solid black" colspan="3">Summary</th>
+                                    </tr>
+                                  </thead>
+                                  <thead style="margin-top: 20px">
+                                    <tr style="margin-top: 40px">
+                                      <th style="padding-right: 12px; padding-top: 28px; color: #6b7280">Product</th>
+                                      <th style="padding-right: 12px; padding-top: 28px; color: #6b7280">Quantity</th>
+                                      <th style="padding-right: 12px; padding-top: 28px; color: #6b7280">Price</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {{#each items}}
+                                    <tr>
+                                      <td style="max-width: 256px; text-wrap: wrap; padding-bottom: 12px; padding-right: 24px; padding-top: 12px; font-size: 18px; font-weight: 800">
+                                        {{name}} {{#if tier_name}}
+                                        <br>
+                                        ({{tier_name}}) {{/if}}
+                                      </td>
+                                      <td style="padding-bottom: 12px; padding-right: 24px; padding-top: 12px; vertical-align: bottom; font-size: 18px; font-weight: 500">{{quantity}}</td>
+                                      <td style="padding-bottom: 12px; padding-right: 24px; padding-top: 12px; vertical-align: bottom; font-size: 18px; font-weight: 500">{{price}}</td>
+                                    </tr>
+                                    {{/each}}
+                                  </tbody>
+                                  <tfoot>
+                                    <tr>
+                                      <td colspan="2" style="padding-top: 8px; padding-bottom: 8px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 700">Subtotal:</td>
+                                      <td style="padding-top: 8px; padding-bottom: 8px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 500">{{sub_total}}</td>
+                                    </tr>
+                                    {{#if discount_applied}}
+                                    <tr>
+                                      <td colspan="2" style="padding-top: 8px; padding-bottom: 8px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 700">Discount amount:</td>
+                                      <td style="padding-top: 8px; padding-bottom: 8px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 500">-{{discount_applied}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    <tr>
+                                      <td colspan="2" style="padding-top: 12px; padding-bottom: 12px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 700">Total:</td>
+                                      <td style="padding-top: 12px; padding-bottom: 12px; padding-right: 24px; text-align: right; vertical-align: bottom; font-size: 18px; font-weight: 500">{{total}}</td>
+                                    </tr>
+                                  </tfoot>
+                                </table>
+                                <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                                  <tr>
+                                    <td class="sm-px-0 sm-pb-8 sm-w-full sm-inline-block" style="width: 50%; padding-right: 8px; vertical-align: top">
+                                      <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                                        <tr>
+                                          <td style="padding: 8px">
+                                            <h2 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 24px; color: #000">Payment details</h2>
+                                            <div role="separator" style="line-height: 10px; border-bottom: 1px solid black">&zwj;</div>
+                                            <div style="margin-top: 8px; color: #000">
+                                              <p style="margin-bottom: 12px; font-size: 18px">
+                                                <b>Payment status:</b>
+                                                <br>
+                                                {{payment_status}}
+                                              </p>
+                                              <p style="font-size: 18px">
+                                                <b>Payment method:</b>
+                                                <br>
+                                                {{gateway}}
+                                              </p>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                    <td class="sm-px-0 sm-w-full sm-inline-block" style="width: 50%; padding-left: 8px; vertical-align: top">
+                                      <table style="width: 100%" cellpadding="0" cellspacing="0" role="none">
+                                        <tr>
+                                          <td style="padding: 8px">
+                                            <h2 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 24px; color: #000">Customer details</h2>
+                                            <div role="separator" style="line-height: 10px; border-bottom: 1px solid black">&zwj;</div>
+                                            <div style="margin-top: 8px; color: #000">
+                                              <p style="font-size: 18px">
+                                                <b>Name:</b>
+                                                <br>
+                                                {{buyer_name}}
+                                              </p>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr role="separator">
+                  <td style="line-height: 32px">&zwj;</td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 24px; padding-right: 24px; text-align: center; font-size: 12px; color: #475569">
+                    <div>
+                      {{#if is_client_logo}}
+                      <p style="font-weight: 700">
+                        <a href="{{company_page}}" class="hover-important-text-decoration-underline" style="color: #1e1f3b; text-decoration: none">{{business_name}}</a>
+                      </p>
+                      {{#if social_media_handles}}
+                      <p style="cursor: default">
+                        {{#each social_media_handles}}
+                        <a href="{{link}}" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">{{handle}}</a>
+                        {{#unless @last}} &bull; {{/unless}} {{/each}}
+                      </p>
+                      {{/if}} {{else}}
+                      <p>
+                        <a href="https://headstartmentalhealth.com" class="hover-important-text-decoration-underline" style="color: #1e1f3b; text-decoration: none">Home</a>
+                        &bull;
+                        <a href="#" class="hover-important-text-decoration-underline" style="color: #1e1f3b; text-decoration: none">Contact</a>
+                      </p>
+                      <div>
+                        <p>{{address}}</p>
+                      </div>
+                      <p style="margin: 0 0 8px">&copy; {{app}} {{year}}</p>
+                      <p style="cursor: default">
+                        <a href="https://linkedin.com" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">LinkedIn</a>
+                        &bull;
+                        <a href="https://instagram.com/headstartmentalhealth" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">Instagram</a>
+                        &bull;
+                        <a href="https://www.facebook.com" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">Facebook</a>
+                        &bull;
+                        <a href="https://www.tiktok.com/@headstartmentalhealth" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">TikTok</a>
+                        &bull;
+                        <a href="https://x.com/headstartmentalhealth" class="hover-important-text-decoration-underline" style="color: #13274f; text-decoration: none">X</a>
+                      </p>
+                      {{/if}}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

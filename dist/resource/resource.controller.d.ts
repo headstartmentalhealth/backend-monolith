@@ -1,0 +1,77 @@
+import { ResourceService } from './resource.service';
+import { CreateResourceDto, FilterResourceDto, UpdateResourceDto } from './resource.dto';
+import { AuthPayload } from '@/generic/generic.payload';
+import { IdDto } from '@/generic/generic.dto';
+export declare class ResourceController {
+    private readonly resourceService;
+    constructor(resourceService: ResourceService);
+    create(request: AuthPayload & Request, dto: CreateResourceDto): Promise<import("@/generic/generic.payload").GenericPayloadAlias<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        description: string | null;
+        cover_image: string | null;
+        creator_id: string;
+        minutes: number | null;
+        title: string;
+        resource_type: import(".prisma/client").$Enums.ResourceType;
+        content_url: string | null;
+        category: string | null;
+        age_range: string | null;
+        topic: string | null;
+    }>>;
+    findAll(request: AuthPayload, filterDto: FilterResourceDto): Promise<import("@/generic/generic.payload").PagePayload<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        description: string | null;
+        cover_image: string | null;
+        creator_id: string;
+        minutes: number | null;
+        title: string;
+        resource_type: import(".prisma/client").$Enums.ResourceType;
+        content_url: string | null;
+        category: string | null;
+        age_range: string | null;
+        topic: string | null;
+    }>>;
+    findOne(request: AuthPayload, param: IdDto): Promise<import("@/generic/generic.payload").GenericDataPayload<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        description: string | null;
+        cover_image: string | null;
+        creator_id: string;
+        minutes: number | null;
+        title: string;
+        resource_type: import(".prisma/client").$Enums.ResourceType;
+        content_url: string | null;
+        category: string | null;
+        age_range: string | null;
+        topic: string | null;
+    }>>;
+    update(request: AuthPayload & Request, param: IdDto, dto: UpdateResourceDto): Promise<import("@/generic/generic.payload").GenericPayloadAlias<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        description: string | null;
+        cover_image: string | null;
+        creator_id: string;
+        minutes: number | null;
+        title: string;
+        resource_type: import(".prisma/client").$Enums.ResourceType;
+        content_url: string | null;
+        category: string | null;
+        age_range: string | null;
+        topic: string | null;
+    }>>;
+    remove(request: AuthPayload & Request, param: IdDto): Promise<import("@/generic/generic.payload").GenericPayload>;
+}

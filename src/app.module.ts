@@ -29,6 +29,7 @@ import { WithdrawModule } from './withdraw/withdraw.module';
 import { CurrencyModule } from './currency/currency.module';
 import { ResourceModule } from './resource/resource.module';
 import { BlogPostModule } from './blog-post/blog-post.module';
+import { MoodCheckInModule } from './mood-check-in/mood-check-in.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { BlogPostModule } from './blog-post/blog-post.module';
     CurrencyModule,
     ResourceModule,
     BlogPostModule,
+    MoodCheckInModule,
     // ReviewModule,
   ],
 })

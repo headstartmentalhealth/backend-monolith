@@ -138,6 +138,7 @@ export class ResourceService {
     const filters: Prisma.ResourceWhereInput & TZ = {
       ...(payload['Business-Id'] && { business_id: payload['Business-Id'] }),
       ...(filterDto.resource_type && { resource_type: filterDto.resource_type }),
+      ...(filterDto.topic && { topic: filterDto.topic }),
       ...(filterDto.q && {
         OR: [
           {

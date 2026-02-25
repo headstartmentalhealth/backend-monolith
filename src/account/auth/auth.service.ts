@@ -896,6 +896,63 @@ export class AuthService {
   }
 
   /**
+   * Direct Sign-in for Mobile/Public access
+   * @param loginDto
+   * @param request
+   * @returns LoginPayload
+   */
+  async signin(loginDto: LoginDto, request: Request): Promise<LoginPayload> {
+    const { email, password } = loginDto;
+
+    const includes: Prisma.UserInclude = { role: true };
+
+    // 1. Validate User Credentials
+    const user = await this.userRepository.findOne({ email }, includes);
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password.');
+    }
+
+    if (user.signin_option !== SigninOption.INTERNAL) {
+      throw new UnauthorizedException(
+        `This account was registered with ${user.signin_option.toLowerCase()}. Please sign in using ${user.signin_option.toLowerCase()}.`,
+      );
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid email or password.');
+    }
+
+    // 2. Check if Email is Verified
+    if (!user.is_email_verified) {
+      throw new UnauthorizedException(
+        'Email address not verified. Please verify your email to log in.',
+      );
+    }
+
+    // 3. Generate Access Token and Payload
+    return await this.generateAuthTokenAndPayload(
+      user as User & { role: { role_id: Role } },
+      request,
+    );
+  }
+
+  /**
+   * Logout user
+   * @param user
+   * @returns GenericPayload
+   */
+  async logout(user: any): Promise<GenericPayload> {
+    // For stateless JWT, we just return success.
+    // In a stateful system, we would invalidate the session/token here.
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Logged out successfully.',
+    };
+  }
+
+  /**
    * Verify OTP and Login (Users' only)
    * @param verifyOtpDto
    * @returns LoginPayload
@@ -1651,31 +1708,47 @@ export class AuthService {
     auth: AuthPayload['user'],
     savePersonalInfoDto: SavePersonalInfoDto,
   ): Promise<GenericPayload> {
-    // 1. Upsert Personal Data
-    await this.profileRepository.upsert({
-      where: { user_id: auth.sub },
-      create: {
-        user_id: auth.sub,
-        address: savePersonalInfoDto.address,
-        bio: savePersonalInfoDto.bio,
-        date_of_birth: new Date(
-          savePersonalInfoDto.date_of_birth,
-        ).toISOString(),
-        gender: savePersonalInfoDto.gender,
-        profile_picture: savePersonalInfoDto.profile_picture,
-      },
-      update: {
-        address: savePersonalInfoDto.address,
-        bio: savePersonalInfoDto.bio,
-        date_of_birth: new Date(
-          savePersonalInfoDto.date_of_birth,
-        ).toISOString(),
-        gender: savePersonalInfoDto.gender,
-        profile_picture: savePersonalInfoDto.profile_picture,
-      },
+    const { name, phone, address, bio, date_of_birth, gender, profile_picture } =
+      savePersonalInfoDto;
+
+    await this.prisma.$transaction(async (prisma) => {
+      // 1. Update User table if name or phone is provided
+      if (name || phone) {
+        await prisma.user.update({
+          where: { id: auth.sub },
+          data: {
+            ...(name && { name }),
+            ...(phone && { phone }),
+          },
+        });
+      }
+
+      // 2. Upsert Profile Data
+      await prisma.profile.upsert({
+        where: { user_id: auth.sub },
+        create: {
+          user_id: auth.sub,
+          address,
+          bio,
+          ...(date_of_birth && {
+            date_of_birth: new Date(date_of_birth).toISOString(),
+          }),
+          gender,
+          profile_picture,
+        },
+        update: {
+          address,
+          bio,
+          ...(date_of_birth && {
+            date_of_birth: new Date(date_of_birth).toISOString(),
+          }),
+          gender,
+          profile_picture,
+        },
+      });
     });
 
-    // 2. Return Success Response
+    // 3. Return Success Response
     return {
       statusCode: HttpStatus.OK,
       message: 'Personal information saved successfully.',

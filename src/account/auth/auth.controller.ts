@@ -132,6 +132,33 @@ export class AuthController {
   }
 
   /**
+   * Direct Sign-in for Mobile/Public access
+   * @param loginDto
+   * @param request
+   * @returns LoginPayload
+   */
+  @Post('signin')
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  async signin(
+    @Body(new ValidationPipe({ whitelist: true })) loginDto: LoginDto,
+    @Req() request: Request,
+  ): Promise<LoginPayload> {
+    return this.authService.signin(loginDto, request);
+  }
+
+  /**
+   * Logout user
+   * @param req
+   * @returns GenericPayload
+   */
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  async logout(@Req() req: AuthPayload): Promise<GenericPayload> {
+    return this.authService.logout(req.user);
+  }
+
+  /**
    * Login otp request (users' only)
    * @param loginDto
    * @returns GenericPayload with login request otp status and message

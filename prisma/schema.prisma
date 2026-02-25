@@ -139,6 +139,7 @@ model User {
   business_account_currencies_created   BusinessAccountCurrency[]
   business_product_enabled_currencies_created   BusinessProductEnabledCurrency[]
   blog_posts                BlogPost[]
+  mood_check_ins            MoodCheckIn[]           @relation("user_mood_check_ins")
 
   @@index([email])
   @@index([phone])
@@ -1669,4 +1670,25 @@ model BlogPost {
   @@index([author_id])
   @@index([slug])
   @@map("blog_posts")
+}
+
+enum Mood {
+  ANGRY
+  SAD
+  NORMAL
+  SMILE
+  HAPPY
+}
+
+model MoodCheckIn {
+  id         String    @id @default(uuid())
+  user_id    String    @db.VarChar(36)
+  mood       Mood
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  user       User      @relation("user_mood_check_ins", fields: [user_id], references: [id])
+
+  @@index([user_id])
+  @@map("mood_check_ins")
 }

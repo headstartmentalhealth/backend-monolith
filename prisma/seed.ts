@@ -172,6 +172,7 @@ async function main() {
         },
       });
       console.log('Super Admin user seeded:', superAdminUser.email);
+      await seedMoodData(superAdminUser.id);
     } else {
         console.error('Owner Super Administrator role not found, skipping super admin creation.');
     }
@@ -181,6 +182,44 @@ async function main() {
   }
 
   console.log('Seeding completed.');
+}
+
+async function seedMoodData(userId: string) {
+  const moods = ['ANGRY', 'SAD', 'NORMAL', 'SMILE', 'HAPPY'];
+  const resources = [
+    { mood: 'ANGRY', title: 'Managing Anger', description: 'Techniques to cool down and find peace.', type: 'LIBRARY' },
+    { mood: 'SAD', title: 'Dealing with Sadness', description: 'Finding hope and resilience in dark times.', type: 'LIBRARY' },
+    { mood: 'NORMAL', title: 'Maintaining Balance', description: 'Stay centered and calm throughout your day.', type: 'PODCAST' },
+    { mood: 'SMILE', title: 'The Science of Smiling', description: 'How a simple smile can change your brain chemistry.', type: 'AFFIRMATIVE' },
+    { mood: 'HAPPY', title: 'Cultivating Happiness', description: 'Activities to boost your mood and spread joy.', type: 'LIBRARY' },
+  ];
+
+  console.log('Seeding mood resources...');
+  for (const r of resources) {
+    await prisma.resource.upsert({
+      where: { id: `seed-resource-${r.mood.toLowerCase()}` },
+      update: {},
+      create: {
+        id: `seed-resource-${r.mood.toLowerCase()}`,
+        title: r.title,
+        description: r.description,
+        resource_type: r.type as any,
+        topic: r.mood,
+        creator_id: userId,
+      }
+    });
+  }
+
+  console.log('Seeding mood check-ins...');
+  for (const mood of moods) {
+    await prisma.moodCheckIn.create({
+      data: {
+        user_id: userId,
+        mood: mood as any,
+        created_at: faker.date.recent(),
+      }
+    });
+  }
 }
 
 async function seedBusinessCourses() {
