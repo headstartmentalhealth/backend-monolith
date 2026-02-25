@@ -27,10 +27,10 @@ export declare class WithdrawService {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            amount: Prisma.Decimal;
-            status: string;
             business_id: string;
             currency: string;
+            status: string;
+            amount: Prisma.Decimal;
             requested_user_id: string;
             charge: Prisma.Decimal | null;
             notes: string | null;
@@ -46,10 +46,10 @@ export declare class WithdrawService {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            amount: Prisma.Decimal;
-            status: string;
             business_id: string;
             currency: string;
+            status: string;
+            amount: Prisma.Decimal;
             requested_user_id: string;
             charge: Prisma.Decimal | null;
             notes: string | null;
@@ -61,19 +61,13 @@ export declare class WithdrawService {
     findOne(id: string): Promise<{
         statusCode: HttpStatus;
         data: {
-            requested_by: {
-                name: string;
-                id: string;
-                email: string;
-                phone: string;
-            };
             business: {
                 id: string;
+                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
                 business_name: string;
-                user_id: string;
                 business_size: import(".prisma/client").$Enums.BusinessSize;
                 business_slug: string | null;
                 business_description: string | null;
@@ -89,15 +83,21 @@ export declare class WithdrawService {
                 social_media_handles: Prisma.JsonValue | null;
                 enable_special_offer: boolean | null;
             };
+            requested_by: {
+                id: string;
+                email: string;
+                name: string;
+                phone: string;
+            };
         } & {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            amount: Prisma.Decimal;
-            status: string;
             business_id: string;
             currency: string;
+            status: string;
+            amount: Prisma.Decimal;
             requested_user_id: string;
             charge: Prisma.Decimal | null;
             notes: string | null;
@@ -108,19 +108,13 @@ export declare class WithdrawService {
     findDetails(id: string, req: AuthPayload & Request): Promise<{
         statusCode: HttpStatus;
         data: {
-            requested_by: {
-                name: string;
-                id: string;
-                email: string;
-                phone: string;
-            };
             business: {
                 id: string;
+                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
                 business_name: string;
-                user_id: string;
                 business_size: import(".prisma/client").$Enums.BusinessSize;
                 business_slug: string | null;
                 business_description: string | null;
@@ -136,15 +130,21 @@ export declare class WithdrawService {
                 social_media_handles: Prisma.JsonValue | null;
                 enable_special_offer: boolean | null;
             };
+            requested_by: {
+                id: string;
+                email: string;
+                name: string;
+                phone: string;
+            };
         } & {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            amount: Prisma.Decimal;
-            status: string;
             business_id: string;
             currency: string;
+            status: string;
+            amount: Prisma.Decimal;
             requested_user_id: string;
             charge: Prisma.Decimal | null;
             notes: string | null;
@@ -176,10 +176,10 @@ export declare class WithdrawService {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
-        amount: Prisma.Decimal;
-        status: string;
         business_id: string;
         currency: string;
+        status: string;
+        amount: Prisma.Decimal;
         requested_user_id: string;
         charge: Prisma.Decimal | null;
         notes: string | null;
@@ -191,10 +191,10 @@ export declare class WithdrawService {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
-        amount: Prisma.Decimal;
-        status: string;
         business_id: string;
         currency: string;
+        status: string;
+        amount: Prisma.Decimal;
         requested_user_id: string;
         charge: Prisma.Decimal | null;
         notes: string | null;

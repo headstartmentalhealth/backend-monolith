@@ -1,0 +1,73 @@
+import { BlogPostService } from './blog-post.service';
+import { CreateBlogPostDto, FilterBlogPostDto, UpdateBlogPostDto } from './blog-post.dto';
+import { AuthPayload } from '@/generic/generic.payload';
+import { IdDto } from '@/generic/generic.dto';
+export declare class BlogPostController {
+    private readonly blogPostService;
+    constructor(blogPostService: BlogPostService);
+    create(request: AuthPayload & Request, dto: CreateBlogPostDto): Promise<import("@/generic/generic.payload").GenericPayloadAlias<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        cover_image: string | null;
+        title: string;
+        published_at: Date | null;
+        slug: string;
+        content: string;
+        category: string | null;
+        excerpt: string | null;
+        is_published: boolean;
+        author_id: string;
+    }>>;
+    fetch(request: AuthPayload, filterDto: FilterBlogPostDto): Promise<import("@/generic/generic.payload").PagePayload<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        cover_image: string | null;
+        title: string;
+        published_at: Date | null;
+        slug: string;
+        content: string;
+        category: string | null;
+        excerpt: string | null;
+        is_published: boolean;
+        author_id: string;
+    }>>;
+    fetchSingle(request: AuthPayload, param: IdDto): Promise<import("@/generic/generic.payload").GenericDataPayload<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        cover_image: string | null;
+        title: string;
+        published_at: Date | null;
+        slug: string;
+        content: string;
+        category: string | null;
+        excerpt: string | null;
+        is_published: boolean;
+        author_id: string;
+    }>>;
+    update(request: AuthPayload & Request, param: IdDto, dto: UpdateBlogPostDto): Promise<import("@/generic/generic.payload").GenericPayloadAlias<{
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        deleted_at: Date | null;
+        business_id: string | null;
+        cover_image: string | null;
+        title: string;
+        published_at: Date | null;
+        slug: string;
+        content: string;
+        category: string | null;
+        excerpt: string | null;
+        is_published: boolean;
+        author_id: string;
+    }>>;
+    delete(request: AuthPayload & Request, param: IdDto): Promise<import("@/generic/generic.payload").GenericPayload>;
+}

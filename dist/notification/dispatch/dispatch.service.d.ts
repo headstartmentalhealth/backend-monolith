@@ -31,15 +31,15 @@ export declare class NotificationDispatchService {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
+        type: import(".prisma/client").$Enums.NotificationType;
+        business_id: string | null;
+        status: boolean;
         title: string;
         message: string;
-        status: boolean;
         read: boolean;
         icon_url: string | null;
         is_scheduled: boolean;
-        business_id: string | null;
         owner_id: string | null;
-        type: import(".prisma/client").$Enums.NotificationType;
         account_role: string | null;
     }[]>;
     markAsRead(notificationId: string): Promise<{
@@ -47,15 +47,15 @@ export declare class NotificationDispatchService {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
+        type: import(".prisma/client").$Enums.NotificationType;
+        business_id: string | null;
+        status: boolean;
         title: string;
         message: string;
-        status: boolean;
         read: boolean;
         icon_url: string | null;
         is_scheduled: boolean;
-        business_id: string | null;
         owner_id: string | null;
-        type: import(".prisma/client").$Enums.NotificationType;
         account_role: string | null;
     }>;
     filterUnread(businessId: string): Promise<{
@@ -63,15 +63,15 @@ export declare class NotificationDispatchService {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
+        type: import(".prisma/client").$Enums.NotificationType;
+        business_id: string | null;
+        status: boolean;
         title: string;
         message: string;
-        status: boolean;
         read: boolean;
         icon_url: string | null;
         is_scheduled: boolean;
-        business_id: string | null;
         owner_id: string | null;
-        type: import(".prisma/client").$Enums.NotificationType;
         account_role: string | null;
     }[]>;
     consoleDispatchNotification(request: AuthPayload & Request, createNotificationDispatchConsoleDto: CreateNotificationDispatchConsoleDto): Promise<{
