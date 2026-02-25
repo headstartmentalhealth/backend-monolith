@@ -140,7 +140,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🔐 Your Login OTP is Here!`,
+        subject: `Your Login OTP is Here!`,
         template: './login-request-email', // `.hbs` extension is appended automatically
         context: {
           name: user.name,
@@ -172,7 +172,7 @@ export class MailService {
 
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🔑 Password Reset Request`,
+        subject: `Password Reset Request`,
         template: './password-reset', // `.hbs` extension is appended automatically
         context: {
           name: user.name,
@@ -204,7 +204,7 @@ export class MailService {
 
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🔑 Here’s your new Doexcess password setup link`,
+        subject: `Here’s your new Doexcess password setup link`,
         template: './password-creation', // `.hbs` extension is appended automatically
         context: {
           name: user.name,
@@ -231,7 +231,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🎉 Your Password Has Been Reset Successfully!`,
+        subject: `Your Password Has Been Reset Successfully!`,
         template: './password-reset-done', // `.hbs` extension is appended automatically
         context: {
           name: user.name,
@@ -411,7 +411,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: email,
-        subject: `🚀 Just a quick reminder - you're invited to join ${business_name}!`,
+        subject: `Just a quick reminder - you're invited to join ${business_name}!`,
         template: './reinvite-member-email', // `.hbs` extension is appended automatically
         context: {
           business_name,
@@ -496,7 +496,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `Your ${subscription.plan_name} subscription receipt 🚀`,
+        subject: `Your ${subscription.plan_name} subscription receipt`,
         template: './subscription', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -555,7 +555,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `📊 New Subscription: ${subscriber_name} has subscribed to ${subscription.plan_name}`,
+        subject: `New Subscription: ${subscriber_name} has subscribed to ${subscription.plan_name}`,
         template: './subscription-notification-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -612,7 +612,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🎉 Your ${subscription.plan_name} subscription has been renewed!`,
+        subject: `Your ${subscription.plan_name} subscription has been renewed!`,
         template: './subscription-renewal', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -671,7 +671,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `📊 Subscription Renewed: ${subscriber_name} has renewed their ${subscription.plan_name} subscription`,
+        subject: `Subscription Renewed: ${subscriber_name} has renewed their ${subscription.plan_name} subscription`,
         template: './subscription-renewal-notification-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -725,7 +725,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🚨 Payment failed - Renew your subscription`,
+        subject: `Payment failed - Renew your subscription`,
         template: './payment-failure', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -766,7 +766,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `😢 Subscription Deactivated - Reactivate Now`,
+        subject: `Subscription Deactivated - Reactivate Now`,
         template: './subscription-deactivated', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -817,7 +817,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🎉 Your subscription has been upgraded!`,
+        subject: `Your subscription has been upgraded!`,
         template: './subscription-upgrade', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -880,7 +880,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🔔 Subscription upgrade alert: ${subscriber_name}`,
+        subject: `Subscription upgrade alert: ${subscriber_name}`,
         template: './subscription-upgrade-notification-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -986,7 +986,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `Your Purchase Was Successful! 🎉`,
+        subject: `Your Purchase Was Successful!`,
         template: './purchase-confirmation', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1053,7 +1053,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `New Purchase Alert! 🎉`,
+        subject: `New Purchase Alert!`,
         template: './purchase-confirmation-notification-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1101,7 +1101,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `Don't Miss Out! Your Cart is Waiting for You 🛍️`,
+        subject: `Don't Miss Out! Your Cart is Waiting for You`,
         template: './cart-reminder', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1139,7 +1139,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `⚠️ Account Suspension Notice for Your Business Account`,
+        subject: `Account Suspension Notice for Your Business Account`,
         template: './account-suspension-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1170,7 +1170,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🎉 Your Account has been successfully restored`,
+        subject: `Your Account has been successfully restored`,
         template: './account-unsuspension-email', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1214,7 +1214,7 @@ export class MailService {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
-        subject: `🔐 Your Password Was Updated Successfully`,
+        subject: `Your Password Was Updated Successfully`,
         template: './updated-password', // `.hbs` extension is appended automatically
         context: {
           // ✏️ filling curly brackets with content
@@ -1505,7 +1505,7 @@ export class MailService {
     await this.mailerService.sendMail({
       to: user.email,
       // from: '"Support Team" <support@example.com>', // override default from
-      subject: `💸 Your Withdrawal Request Has Been Processed`,
+      subject: `Your Withdrawal Request Has Been Processed`,
       template: './transfer-receipt', // `.hbs` extension is appended automatically
       context: {
         // ✏️ filling curly brackets with content

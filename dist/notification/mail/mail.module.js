@@ -13,6 +13,7 @@ const common_1 = require("@nestjs/common");
 const mail_service_1 = require("./mail.service");
 const path_1 = require("path");
 const config_1 = require("@nestjs/config");
+const keplars_transport_1 = require("./keplars.transport");
 let MailModule = class MailModule {
 };
 exports.MailModule = MailModule;
@@ -21,16 +22,9 @@ exports.MailModule = MailModule = __decorate([
         imports: [
             mailer_1.MailerModule.forRootAsync({
                 useFactory: async (config) => ({
-                    transport: {
-                        host: config.get('MAIL_HOST'),
-                        auth: {
-                            user: config.get('MAIL_USER'),
-                            pass: config.get('MAIL_PASSWORD'),
-                        },
-                        port: 587,
-                    },
+                    transport: new keplars_transport_1.KeplarsTransport(config.get('MAIL_API_KEY') || config.get('MAIL_PASSWORD')),
                     defaults: {
-                        from: `"HeadStart" <${config.get('MAIL_FROM')}>`,
+                        from: `"HeadStart Connect" <${config.get('MAIL_FROM')}>`,
                     },
                     template: {
                         dir: (0, path_1.join)(__dirname, '../../notification/mail/templates'),

@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
+import { KeplarsTransport } from './keplars.transport';
 
 @Module({
   imports: [
@@ -12,17 +13,11 @@ import { ConfigService } from '@nestjs/config';
       useFactory: async (config: ConfigService) => ({
         // transport: config.get("MAIL_TRANSPORT"),
         // or
-        transport: {
-          host: config.get('MAIL_HOST'),
-          // secure: true,
-          auth: {
-            user: config.get('MAIL_USER'),
-            pass: config.get('MAIL_PASSWORD'),
-          },
-          port: 587,
-        },
+        transport: new KeplarsTransport(
+          config.get('MAIL_API_KEY') || config.get('MAIL_PASSWORD'),
+        ),
         defaults: {
-          from: `"HeadStart" <${config.get('MAIL_FROM')}>`,
+          from: `"HeadStart Connect" <${config.get('MAIL_FROM')}>`,
         },
         template: {
           dir: join(__dirname, '../../notification/mail/templates'),
