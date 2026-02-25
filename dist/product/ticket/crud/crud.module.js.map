@@ -1,1 +1,0 @@
-{"version":3,"file":"crud.module.js","sourceRoot":"","sources":["../../../../src/product/ticket/crud/crud.module.ts"],"names":[],"mappings":";;;;;;;;;AAAA,2CAAwC;AACxC,iDAAmD;AACnD,uDAAyD;AAMlD,IAAM,UAAU,GAAhB,MAAM,UAAU;CAAG,CAAA;AAAb,gCAAU;qBAAV,UAAU;IAJtB,IAAA,eAAM,EAAC;QACN,WAAW,EAAE,CAAC,sCAAoB,CAAC;QACnC,SAAS,EAAE,CAAC,gCAAiB,CAAC;KAC/B,CAAC;GACW,UAAU,CAAG"}

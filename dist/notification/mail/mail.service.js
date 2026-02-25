@@ -101,7 +101,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🔐 Your Login OTP is Here!`,
+                subject: `Your Login OTP is Here!`,
                 template: './login-request-email',
                 context: {
                     name: user.name,
@@ -123,7 +123,7 @@ let MailService = class MailService {
             const url = `${this.configService.get('BUSINESS_FRONTEND_URL')}/auth/change-password?token=${token}`;
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🔑 Password Reset Request`,
+                subject: `Password Reset Request`,
                 template: './password-reset',
                 context: {
                     name: user.name,
@@ -145,7 +145,7 @@ let MailService = class MailService {
             const url = `${this.configService.get('BUSINESS_FRONTEND_URL')}/auth/set-password?token=${token}`;
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🔑 Here’s your new Doexcess password setup link`,
+                subject: `Here’s your new Doexcess password setup link`,
                 template: './password-creation',
                 context: {
                     name: user.name,
@@ -166,7 +166,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🎉 Your Password Has Been Reset Successfully!`,
+                subject: `Your Password Has Been Reset Successfully!`,
                 template: './password-reset-done',
                 context: {
                     name: user.name,
@@ -277,7 +277,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: email,
-                subject: `🚀 Just a quick reminder - you're invited to join ${business_name}!`,
+                subject: `Just a quick reminder - you're invited to join ${business_name}!`,
                 template: './reinvite-member-email',
                 context: {
                     business_name,
@@ -326,7 +326,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `Your ${subscription.plan_name} subscription receipt 🚀`,
+                subject: `Your ${subscription.plan_name} subscription receipt`,
                 template: './subscription',
                 context: {
                     name: user.name,
@@ -358,7 +358,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `📊 New Subscription: ${subscriber_name} has subscribed to ${subscription.plan_name}`,
+                subject: `New Subscription: ${subscriber_name} has subscribed to ${subscription.plan_name}`,
                 template: './subscription-notification-email',
                 context: {
                     business_owner_name: user.name,
@@ -391,7 +391,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🎉 Your ${subscription.plan_name} subscription has been renewed!`,
+                subject: `Your ${subscription.plan_name} subscription has been renewed!`,
                 template: './subscription-renewal',
                 context: {
                     name: user.name,
@@ -423,7 +423,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `📊 Subscription Renewed: ${subscriber_name} has renewed their ${subscription.plan_name} subscription`,
+                subject: `Subscription Renewed: ${subscriber_name} has renewed their ${subscription.plan_name} subscription`,
                 template: './subscription-renewal-notification-email',
                 context: {
                     business_owner_name: user.name,
@@ -457,7 +457,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🚨 Payment failed - Renew your subscription`,
+                subject: `Payment failed - Renew your subscription`,
                 template: './payment-failure',
                 context: {
                     name: user.name,
@@ -484,7 +484,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `😢 Subscription Deactivated - Reactivate Now`,
+                subject: `Subscription Deactivated - Reactivate Now`,
                 template: './subscription-deactivated',
                 context: {
                     name: user.name,
@@ -509,7 +509,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🎉 Your subscription has been upgraded!`,
+                subject: `Your subscription has been upgraded!`,
                 template: './subscription-upgrade',
                 context: {
                     name: user.name,
@@ -543,7 +543,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🔔 Subscription upgrade alert: ${subscriber_name}`,
+                subject: `Subscription upgrade alert: ${subscriber_name}`,
                 template: './subscription-upgrade-notification-email',
                 context: {
                     business_owner_name: user.name,
@@ -603,7 +603,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `Your Purchase Was Successful! 🎉`,
+                subject: `Your Purchase Was Successful!`,
                 template: './purchase-confirmation',
                 context: {
                     business_name,
@@ -635,7 +635,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `New Purchase Alert! 🎉`,
+                subject: `New Purchase Alert!`,
                 template: './purchase-confirmation-notification-email',
                 context: {
                     buyer_name,
@@ -668,7 +668,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `Don't Miss Out! Your Cart is Waiting for You 🛍️`,
+                subject: `Don't Miss Out! Your Cart is Waiting for You`,
                 template: './cart-reminder',
                 context: {
                     name: user.name,
@@ -691,7 +691,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `⚠️ Account Suspension Notice for Your Business Account`,
+                subject: `Account Suspension Notice for Your Business Account`,
                 template: './account-suspension-email',
                 context: {
                     name: user.name,
@@ -713,7 +713,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🎉 Your Account has been successfully restored`,
+                subject: `Your Account has been successfully restored`,
                 template: './account-unsuspension-email',
                 context: {
                     name: user.name,
@@ -747,7 +747,7 @@ let MailService = class MailService {
         try {
             return await this.mailerService.sendMail({
                 to: user.email,
-                subject: `🔐 Your Password Was Updated Successfully`,
+                subject: `Your Password Was Updated Successfully`,
                 template: './updated-password',
                 context: {
                     name: user.name,
@@ -902,7 +902,7 @@ let MailService = class MailService {
     async transferPaymentReceipt(user, data) {
         await this.mailerService.sendMail({
             to: user.email,
-            subject: `💸 Your Withdrawal Request Has Been Processed`,
+            subject: `Your Withdrawal Request Has Been Processed`,
             template: './transfer-receipt',
             context: {
                 name: user.name,

@@ -15,10 +15,10 @@ export declare class WithdrawController {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            status: string;
             business_id: string;
             currency: string;
-            status: string;
-            amount: import("@prisma/client/runtime/library").Decimal;
             requested_user_id: string;
             charge: import("@prisma/client/runtime/library").Decimal | null;
             notes: string | null;
@@ -34,10 +34,10 @@ export declare class WithdrawController {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            status: string;
             business_id: string;
             currency: string;
-            status: string;
-            amount: import("@prisma/client/runtime/library").Decimal;
             requested_user_id: string;
             charge: import("@prisma/client/runtime/library").Decimal | null;
             notes: string | null;
@@ -49,13 +49,19 @@ export declare class WithdrawController {
     findOne(req: AuthPayload & Request, id: string): Promise<{
         statusCode: import("@nestjs/common").HttpStatus;
         data: {
+            requested_by: {
+                name: string;
+                id: string;
+                email: string;
+                phone: string;
+            };
             business: {
                 id: string;
-                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
                 business_name: string;
+                user_id: string;
                 business_size: import(".prisma/client").$Enums.BusinessSize;
                 business_slug: string | null;
                 business_description: string | null;
@@ -71,21 +77,15 @@ export declare class WithdrawController {
                 social_media_handles: import("@prisma/client/runtime/library").JsonValue | null;
                 enable_special_offer: boolean | null;
             };
-            requested_by: {
-                id: string;
-                email: string;
-                name: string;
-                phone: string;
-            };
         } & {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            status: string;
             business_id: string;
             currency: string;
-            status: string;
-            amount: import("@prisma/client/runtime/library").Decimal;
             requested_user_id: string;
             charge: import("@prisma/client/runtime/library").Decimal | null;
             notes: string | null;
@@ -96,13 +96,19 @@ export declare class WithdrawController {
     findDetails(req: AuthPayload & Request, id: string): Promise<{
         statusCode: import("@nestjs/common").HttpStatus;
         data: {
+            requested_by: {
+                name: string;
+                id: string;
+                email: string;
+                phone: string;
+            };
             business: {
                 id: string;
-                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
                 business_name: string;
+                user_id: string;
                 business_size: import(".prisma/client").$Enums.BusinessSize;
                 business_slug: string | null;
                 business_description: string | null;
@@ -118,21 +124,15 @@ export declare class WithdrawController {
                 social_media_handles: import("@prisma/client/runtime/library").JsonValue | null;
                 enable_special_offer: boolean | null;
             };
-            requested_by: {
-                id: string;
-                email: string;
-                name: string;
-                phone: string;
-            };
         } & {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            status: string;
             business_id: string;
             currency: string;
-            status: string;
-            amount: import("@prisma/client/runtime/library").Decimal;
             requested_user_id: string;
             charge: import("@prisma/client/runtime/library").Decimal | null;
             notes: string | null;
@@ -163,10 +163,10 @@ export declare class WithdrawController {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
+        amount: import("@prisma/client/runtime/library").Decimal;
+        status: string;
         business_id: string;
         currency: string;
-        status: string;
-        amount: import("@prisma/client/runtime/library").Decimal;
         requested_user_id: string;
         charge: import("@prisma/client/runtime/library").Decimal | null;
         notes: string | null;
@@ -178,10 +178,10 @@ export declare class WithdrawController {
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
+        amount: import("@prisma/client/runtime/library").Decimal;
+        status: string;
         business_id: string;
         currency: string;
-        status: string;
-        amount: import("@prisma/client/runtime/library").Decimal;
         requested_user_id: string;
         charge: import("@prisma/client/runtime/library").Decimal | null;
         notes: string | null;

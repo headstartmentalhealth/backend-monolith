@@ -36,14 +36,14 @@ export declare class ChatsService {
         created_at: Date;
         updated_at: Date;
         chat_buddy: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
@@ -59,22 +59,22 @@ export declare class ChatsService {
             deleted_at: Date | null;
             message: string | null;
             read: boolean;
+            chat_group_id: string | null;
             initiator_id: string;
             chat_buddy_id: string | null;
-            chat_group_id: string | null;
             file: string | null;
             chat_id: string;
         }[];
         unread: number;
         initiator: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
@@ -84,28 +84,28 @@ export declare class ChatsService {
             };
         };
         chat_group: {
-            subscription_plan: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                business_id: string;
-                name: string;
-                product_id: string | null;
-                description: string | null;
-                cover_image: string | null;
-                creator_id: string;
-            };
             multimedia: {
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                type: import(".prisma/client").$Enums.MultimediaType;
+                url: string;
                 business_id: string | null;
+                type: import(".prisma/client").$Enums.MultimediaType;
                 creator_id: string | null;
                 provider: import(".prisma/client").$Enums.MultimediaProvider;
-                url: string;
+            };
+            subscription_plan: {
+                name: string;
+                id: string;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
+                business_id: string;
+                creator_id: string;
+                product_id: string | null;
+                description: string | null;
+                cover_image: string | null;
             };
             group_members: ({
                 member: {
@@ -128,40 +128,40 @@ export declare class ChatsService {
                 group_id: string;
             })[];
         } & {
+            name: string;
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            name: string;
-            description: string | null;
-            creator_id: string | null;
             subscription_plan_id: string | null;
+            creator_id: string | null;
+            description: string | null;
             multimedia_id: string | null;
             auto_created: boolean;
         };
         deleted_at: Date | null;
+        chat_group_id: string | null;
+        initiator_id: string | null;
+        chat_buddy_id: string | null;
         last_message: string | null;
         last_message_at: Date | null;
         is_archived: boolean;
         is_group: boolean;
-        initiator_id: string | null;
-        chat_buddy_id: string | null;
-        chat_group_id: string | null;
     } & {
         chat_buddy: {
-            id: string;
             name: string;
+            id: string;
             profile: {
                 id: string;
-                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
+                address: string | null;
+                user_id: string;
                 country: string | null;
                 state: string | null;
                 country_code: string | null;
                 profile_picture: string | null;
-                address: string | null;
                 bio: string | null;
                 date_of_birth: Date | null;
                 gender: import(".prisma/client").$Enums.Gender | null;
@@ -177,14 +177,14 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -200,22 +200,22 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             }[];
             unread: number;
             initiator: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -225,28 +225,28 @@ export declare class ChatsService {
                 };
             };
             chat_group: {
-                subscription_plan: {
-                    id: string;
-                    created_at: Date;
-                    updated_at: Date;
-                    deleted_at: Date | null;
-                    business_id: string;
-                    name: string;
-                    product_id: string | null;
-                    description: string | null;
-                    cover_image: string | null;
-                    creator_id: string;
-                };
                 multimedia: {
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    type: import(".prisma/client").$Enums.MultimediaType;
+                    url: string;
                     business_id: string | null;
+                    type: import(".prisma/client").$Enums.MultimediaType;
                     creator_id: string | null;
                     provider: import(".prisma/client").$Enums.MultimediaProvider;
-                    url: string;
+                };
+                subscription_plan: {
+                    name: string;
+                    id: string;
+                    created_at: Date;
+                    updated_at: Date;
+                    deleted_at: Date | null;
+                    business_id: string;
+                    creator_id: string;
+                    product_id: string | null;
+                    description: string | null;
+                    cover_image: string | null;
                 };
                 group_members: ({
                     member: {
@@ -269,25 +269,25 @@ export declare class ChatsService {
                     group_id: string;
                 })[];
             } & {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
-                description: string | null;
-                creator_id: string | null;
                 subscription_plan_id: string | null;
+                creator_id: string | null;
+                description: string | null;
                 multimedia_id: string | null;
                 auto_created: boolean;
             };
             deleted_at: Date | null;
+            chat_group_id: string | null;
+            initiator_id: string | null;
+            chat_buddy_id: string | null;
             last_message: string | null;
             last_message_at: Date | null;
             is_archived: boolean;
             is_group: boolean;
-            initiator_id: string | null;
-            chat_buddy_id: string | null;
-            chat_group_id: string | null;
         }[];
         count: number;
         page: number;
@@ -304,9 +304,9 @@ export declare class ChatsService {
                     deleted_at: Date | null;
                     message: string | null;
                     read: boolean;
+                    chat_group_id: string | null;
                     initiator_id: string;
                     chat_buddy_id: string | null;
-                    chat_group_id: string | null;
                     file: string | null;
                     chat_id: string;
                 };
@@ -315,11 +315,11 @@ export declare class ChatsService {
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    type: import(".prisma/client").$Enums.MultimediaType;
+                    url: string;
                     business_id: string | null;
+                    type: import(".prisma/client").$Enums.MultimediaType;
                     creator_id: string | null;
                     provider: import(".prisma/client").$Enums.MultimediaProvider;
-                    url: string;
                 };
                 group_members: {
                     id: string;
@@ -337,47 +337,47 @@ export declare class ChatsService {
                     deleted_at: Date | null;
                     message: string | null;
                     read: boolean;
+                    chat_group_id: string | null;
                     initiator_id: string;
                     chat_buddy_id: string | null;
-                    chat_group_id: string | null;
                     file: string | null;
                     chat_id: string;
                 }[];
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
-                description: string | null;
-                creator_id: string | null;
                 subscription_plan_id: string | null;
+                creator_id: string | null;
+                description: string | null;
                 multimedia_id: string | null;
                 auto_created: boolean;
             };
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
                 };
                 profile: {
                     id: string;
-                    user_id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
+                    address: string | null;
+                    user_id: string;
                     country: string | null;
                     state: string | null;
                     country_code: string | null;
                     profile_picture: string | null;
-                    address: string | null;
                     bio: string | null;
                     date_of_birth: Date | null;
                     gender: import(".prisma/client").$Enums.Gender | null;
@@ -389,39 +389,39 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            chat_group_id: string | null;
+            initiator_id: string | null;
+            chat_buddy_id: string | null;
             last_message: string | null;
             last_message_at: Date | null;
             is_archived: boolean;
             unread: Prisma.JsonValue;
             is_group: boolean;
-            initiator_id: string | null;
-            chat_buddy_id: string | null;
-            chat_group_id: string | null;
         };
         initiator: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
             };
             profile: {
                 id: string;
-                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
+                address: string | null;
+                user_id: string;
                 country: string | null;
                 state: string | null;
                 country_code: string | null;
                 profile_picture: string | null;
-                address: string | null;
                 bio: string | null;
                 date_of_birth: Date | null;
                 gender: import(".prisma/client").$Enums.Gender | null;
@@ -429,29 +429,29 @@ export declare class ChatsService {
             };
         };
         chat_buddy: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
             };
             profile: {
                 id: string;
-                user_id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
+                address: string | null;
+                user_id: string;
                 country: string | null;
                 state: string | null;
                 country_code: string | null;
                 profile_picture: string | null;
-                address: string | null;
                 bio: string | null;
                 date_of_birth: Date | null;
                 gender: import(".prisma/client").$Enums.Gender | null;
@@ -464,11 +464,11 @@ export declare class ChatsService {
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                type: import(".prisma/client").$Enums.MultimediaType;
+                url: string;
                 business_id: string | null;
+                type: import(".prisma/client").$Enums.MultimediaType;
                 creator_id: string | null;
                 provider: import(".prisma/client").$Enums.MultimediaProvider;
-                url: string;
             };
             group_members: {
                 id: string;
@@ -486,21 +486,21 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             }[];
         } & {
+            name: string;
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            name: string;
-            description: string | null;
-            creator_id: string | null;
             subscription_plan_id: string | null;
+            creator_id: string | null;
+            description: string | null;
             multimedia_id: string | null;
             auto_created: boolean;
         };
@@ -510,9 +510,9 @@ export declare class ChatsService {
         deleted_at: Date | null;
         message: string | null;
         read: boolean;
+        chat_group_id: string | null;
         initiator_id: string;
         chat_buddy_id: string | null;
-        chat_group_id: string | null;
         file: string | null;
         chat_id: string;
     }>;
@@ -523,14 +523,14 @@ export declare class ChatsService {
     fetchMessages(fetchChatMessagesDto: FetchChatMessagesDto): Promise<{
         data: ({
             initiator: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -540,14 +540,14 @@ export declare class ChatsService {
                 };
             };
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -557,38 +557,38 @@ export declare class ChatsService {
                 };
             };
             chat_group: {
-                subscription_plan: {
-                    id: string;
-                    created_at: Date;
-                    updated_at: Date;
-                    deleted_at: Date | null;
-                    business_id: string;
-                    name: string;
-                    product_id: string | null;
-                    description: string | null;
-                    cover_image: string | null;
-                    creator_id: string;
-                };
                 multimedia: {
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    type: import(".prisma/client").$Enums.MultimediaType;
+                    url: string;
                     business_id: string | null;
+                    type: import(".prisma/client").$Enums.MultimediaType;
                     creator_id: string | null;
                     provider: import(".prisma/client").$Enums.MultimediaProvider;
-                    url: string;
+                };
+                subscription_plan: {
+                    name: string;
+                    id: string;
+                    created_at: Date;
+                    updated_at: Date;
+                    deleted_at: Date | null;
+                    business_id: string;
+                    creator_id: string;
+                    product_id: string | null;
+                    description: string | null;
+                    cover_image: string | null;
                 };
             } & {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
-                description: string | null;
-                creator_id: string | null;
                 subscription_plan_id: string | null;
+                creator_id: string | null;
+                description: string | null;
                 multimedia_id: string | null;
                 auto_created: boolean;
             };
@@ -599,9 +599,9 @@ export declare class ChatsService {
             deleted_at: Date | null;
             message: string | null;
             read: boolean;
+            chat_group_id: string | null;
             initiator_id: string;
             chat_buddy_id: string | null;
-            chat_group_id: string | null;
             file: string | null;
             chat_id: string;
         })[];
@@ -617,17 +617,17 @@ export declare class ChatsService {
     updateMessage(updateChatMessageDto: UpdateChatMessageDto): Promise<{
         chat: {
             initiator: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                email: string;
                 name: string;
+                id: string;
+                email: string;
                 password_hash: string | null;
                 phone: string | null;
                 is_email_verified: boolean;
                 is_phone_verified: boolean;
                 is_first_signup: boolean;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
                 role_identity: string | null;
                 is_suspended: boolean | null;
                 suspended_by: string | null;
@@ -638,17 +638,17 @@ export declare class ChatsService {
                 referral_source: string | null;
             };
             chat_buddy: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                email: string;
                 name: string;
+                id: string;
+                email: string;
                 password_hash: string | null;
                 phone: string | null;
                 is_email_verified: boolean;
                 is_phone_verified: boolean;
                 is_first_signup: boolean;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
                 role_identity: string | null;
                 is_suspended: boolean | null;
                 suspended_by: string | null;
@@ -663,27 +663,27 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            chat_group_id: string | null;
+            initiator_id: string | null;
+            chat_buddy_id: string | null;
             last_message: string | null;
             last_message_at: Date | null;
             is_archived: boolean;
             unread: Prisma.JsonValue;
             is_group: boolean;
-            initiator_id: string | null;
-            chat_buddy_id: string | null;
-            chat_group_id: string | null;
         };
         initiator: {
-            id: string;
-            created_at: Date;
-            updated_at: Date;
-            deleted_at: Date | null;
-            email: string;
             name: string;
+            id: string;
+            email: string;
             password_hash: string | null;
             phone: string | null;
             is_email_verified: boolean;
             is_phone_verified: boolean;
             is_first_signup: boolean;
+            created_at: Date;
+            updated_at: Date;
+            deleted_at: Date | null;
             role_identity: string | null;
             is_suspended: boolean | null;
             suspended_by: string | null;
@@ -694,17 +694,17 @@ export declare class ChatsService {
             referral_source: string | null;
         };
         chat_buddy: {
-            id: string;
-            created_at: Date;
-            updated_at: Date;
-            deleted_at: Date | null;
-            email: string;
             name: string;
+            id: string;
+            email: string;
             password_hash: string | null;
             phone: string | null;
             is_email_verified: boolean;
             is_phone_verified: boolean;
             is_first_signup: boolean;
+            created_at: Date;
+            updated_at: Date;
+            deleted_at: Date | null;
             role_identity: string | null;
             is_suspended: boolean | null;
             suspended_by: string | null;
@@ -721,9 +721,9 @@ export declare class ChatsService {
         deleted_at: Date | null;
         message: string | null;
         read: boolean;
+        chat_group_id: string | null;
         initiator_id: string;
         chat_buddy_id: string | null;
-        chat_group_id: string | null;
         file: string | null;
         chat_id: string;
     }>;
@@ -731,28 +731,28 @@ export declare class ChatsService {
     findMessage(messageId: string): Promise<{
         chat: {
             initiator: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
                 };
             };
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -763,38 +763,38 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
+            chat_group_id: string | null;
+            initiator_id: string | null;
+            chat_buddy_id: string | null;
             last_message: string | null;
             last_message_at: Date | null;
             is_archived: boolean;
             unread: Prisma.JsonValue;
             is_group: boolean;
-            initiator_id: string | null;
-            chat_buddy_id: string | null;
-            chat_group_id: string | null;
         };
         initiator: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
             };
         };
         chat_buddy: {
-            id: string;
             name: string;
+            id: string;
             role: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
                 description: string | null;
                 role_group_id: string;
                 role_id: string;
@@ -807,9 +807,9 @@ export declare class ChatsService {
         deleted_at: Date | null;
         message: string | null;
         read: boolean;
+        chat_group_id: string | null;
         initiator_id: string;
         chat_buddy_id: string | null;
-        chat_group_id: string | null;
         file: string | null;
         chat_id: string;
     }>;
@@ -820,14 +820,14 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -843,22 +843,22 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             }[];
             unread: number;
             initiator: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
+                    name: string;
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    name: string;
                     description: string | null;
                     role_group_id: string;
                     role_id: string;
@@ -868,28 +868,28 @@ export declare class ChatsService {
                 };
             };
             chat_group: {
-                subscription_plan: {
-                    id: string;
-                    created_at: Date;
-                    updated_at: Date;
-                    deleted_at: Date | null;
-                    business_id: string;
-                    name: string;
-                    product_id: string | null;
-                    description: string | null;
-                    cover_image: string | null;
-                    creator_id: string;
-                };
                 multimedia: {
                     id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
-                    type: import(".prisma/client").$Enums.MultimediaType;
+                    url: string;
                     business_id: string | null;
+                    type: import(".prisma/client").$Enums.MultimediaType;
                     creator_id: string | null;
                     provider: import(".prisma/client").$Enums.MultimediaProvider;
-                    url: string;
+                };
+                subscription_plan: {
+                    name: string;
+                    id: string;
+                    created_at: Date;
+                    updated_at: Date;
+                    deleted_at: Date | null;
+                    business_id: string;
+                    creator_id: string;
+                    product_id: string | null;
+                    description: string | null;
+                    cover_image: string | null;
                 };
                 group_members: ({
                     member: {
@@ -912,40 +912,40 @@ export declare class ChatsService {
                     group_id: string;
                 })[];
             } & {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
-                description: string | null;
-                creator_id: string | null;
                 subscription_plan_id: string | null;
+                creator_id: string | null;
+                description: string | null;
                 multimedia_id: string | null;
                 auto_created: boolean;
             };
             deleted_at: Date | null;
+            chat_group_id: string | null;
+            initiator_id: string | null;
+            chat_buddy_id: string | null;
             last_message: string | null;
             last_message_at: Date | null;
             is_archived: boolean;
             is_group: boolean;
-            initiator_id: string | null;
-            chat_buddy_id: string | null;
-            chat_group_id: string | null;
         } & {
             chat_buddy: {
-                id: string;
                 name: string;
+                id: string;
                 profile: {
                     id: string;
-                    user_id: string;
                     created_at: Date;
                     updated_at: Date;
                     deleted_at: Date | null;
+                    address: string | null;
+                    user_id: string;
                     country: string | null;
                     state: string | null;
                     country_code: string | null;
                     profile_picture: string | null;
-                    address: string | null;
                     bio: string | null;
                     date_of_birth: Date | null;
                     gender: import(".prisma/client").$Enums.Gender | null;
@@ -953,28 +953,16 @@ export declare class ChatsService {
                 };
             };
         };
-        subscription_plan: {
-            id: string;
-            created_at: Date;
-            updated_at: Date;
-            deleted_at: Date | null;
-            business_id: string;
-            name: string;
-            product_id: string | null;
-            description: string | null;
-            cover_image: string | null;
-            creator_id: string;
-        };
         multimedia: {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            type: import(".prisma/client").$Enums.MultimediaType;
+            url: string;
             business_id: string | null;
+            type: import(".prisma/client").$Enums.MultimediaType;
             creator_id: string | null;
             provider: import(".prisma/client").$Enums.MultimediaProvider;
-            url: string;
         };
         _count: {
             multimedia: number;
@@ -984,18 +972,30 @@ export declare class ChatsService {
             chat: number;
             chat_messages: number;
         };
-        creator: {
+        subscription_plan: {
+            name: string;
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            email: string;
+            business_id: string;
+            creator_id: string;
+            product_id: string | null;
+            description: string | null;
+            cover_image: string | null;
+        };
+        creator: {
             name: string;
+            id: string;
+            email: string;
             password_hash: string | null;
             phone: string | null;
             is_email_verified: boolean;
             is_phone_verified: boolean;
             is_first_signup: boolean;
+            created_at: Date;
+            updated_at: Date;
+            deleted_at: Date | null;
             role_identity: string | null;
             is_suspended: boolean | null;
             suspended_by: string | null;
@@ -1021,20 +1021,20 @@ export declare class ChatsService {
             deleted_at: Date | null;
             message: string | null;
             read: boolean;
+            chat_group_id: string | null;
             initiator_id: string;
             chat_buddy_id: string | null;
-            chat_group_id: string | null;
             file: string | null;
             chat_id: string;
         }[];
+        name: string;
         id: string;
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
-        name: string;
-        description: string | null;
-        creator_id: string | null;
         subscription_plan_id: string | null;
+        creator_id: string | null;
+        description: string | null;
         multimedia_id: string | null;
         auto_created: boolean;
     }>;
@@ -1047,8 +1047,8 @@ export declare class ChatsService {
             created_at: Date;
             updated_at: Date;
             creator: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
                     name: string;
                     role_id: string;
@@ -1058,8 +1058,8 @@ export declare class ChatsService {
                 };
             };
             members: {
-                id: string;
                 name: string;
+                id: string;
                 role: {
                     name: string;
                     role_id: string;
@@ -1069,27 +1069,27 @@ export declare class ChatsService {
                 };
             }[];
             subscription_plan: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
                 business_id: string;
-                name: string;
+                creator_id: string;
                 product_id: string | null;
                 description: string | null;
                 cover_image: string | null;
-                creator_id: string;
             };
             multimedia: {
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                type: import(".prisma/client").$Enums.MultimediaType;
+                url: string;
                 business_id: string | null;
+                type: import(".prisma/client").$Enums.MultimediaType;
                 creator_id: string | null;
                 provider: import(".prisma/client").$Enums.MultimediaProvider;
-                url: string;
             };
             lastMessage: {
                 id: string;
@@ -1098,9 +1098,9 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             };
@@ -1130,26 +1130,26 @@ export declare class ChatsService {
                 chat_group: number;
                 messages: number;
             };
+            chat_group_id: string;
+            initiator_id: string;
+            chat_buddy_id: string;
             last_message: string;
             last_message_at: Date;
             is_archived: boolean;
             unread: Prisma.JsonValue;
             is_group: boolean;
-            initiator_id: string;
-            chat_buddy_id: string;
-            chat_group_id: string;
             initiator: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                email: string;
                 name: string;
+                id: string;
+                email: string;
                 password_hash: string | null;
                 phone: string | null;
                 is_email_verified: boolean;
                 is_phone_verified: boolean;
                 is_first_signup: boolean;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
                 role_identity: string | null;
                 is_suspended: boolean | null;
                 suspended_by: string | null;
@@ -1160,17 +1160,17 @@ export declare class ChatsService {
                 referral_source: string | null;
             };
             chat_buddy: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                email: string;
                 name: string;
+                id: string;
+                email: string;
                 password_hash: string | null;
                 phone: string | null;
                 is_email_verified: boolean;
                 is_phone_verified: boolean;
                 is_first_signup: boolean;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
                 role_identity: string | null;
                 is_suspended: boolean | null;
                 suspended_by: string | null;
@@ -1181,14 +1181,14 @@ export declare class ChatsService {
                 referral_source: string | null;
             };
             chat_group: {
+                name: string;
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                name: string;
-                description: string | null;
-                creator_id: string | null;
                 subscription_plan_id: string | null;
+                creator_id: string | null;
+                description: string | null;
                 multimedia_id: string | null;
                 auto_created: boolean;
             };
@@ -1199,36 +1199,24 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             }[];
         };
         members_details: any[];
-        subscription_plan: {
-            id: string;
-            created_at: Date;
-            updated_at: Date;
-            deleted_at: Date | null;
-            business_id: string;
-            name: string;
-            product_id: string | null;
-            description: string | null;
-            cover_image: string | null;
-            creator_id: string;
-        };
         multimedia: {
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            type: import(".prisma/client").$Enums.MultimediaType;
+            url: string;
             business_id: string | null;
+            type: import(".prisma/client").$Enums.MultimediaType;
             creator_id: string | null;
             provider: import(".prisma/client").$Enums.MultimediaProvider;
-            url: string;
         };
         _count: {
             multimedia: number;
@@ -1238,18 +1226,30 @@ export declare class ChatsService {
             chat: number;
             chat_messages: number;
         };
-        creator: {
+        subscription_plan: {
+            name: string;
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            email: string;
+            business_id: string;
+            creator_id: string;
+            product_id: string | null;
+            description: string | null;
+            cover_image: string | null;
+        };
+        creator: {
             name: string;
+            id: string;
+            email: string;
             password_hash: string | null;
             phone: string | null;
             is_email_verified: boolean;
             is_phone_verified: boolean;
             is_first_signup: boolean;
+            created_at: Date;
+            updated_at: Date;
+            deleted_at: Date | null;
             role_identity: string | null;
             is_suspended: boolean | null;
             suspended_by: string | null;
@@ -1275,62 +1275,36 @@ export declare class ChatsService {
             deleted_at: Date | null;
             message: string | null;
             read: boolean;
+            chat_group_id: string | null;
             initiator_id: string;
             chat_buddy_id: string | null;
-            chat_group_id: string | null;
             file: string | null;
             chat_id: string;
         }[];
+        name: string;
         id: string;
         created_at: Date;
         updated_at: Date;
         deleted_at: Date | null;
-        name: string;
-        description: string | null;
-        creator_id: string | null;
         subscription_plan_id: string | null;
+        creator_id: string | null;
+        description: string | null;
         multimedia_id: string | null;
         auto_created: boolean;
     }>;
     leaveGroup(dto: LeaveGroupChatDto): Promise<{
         group_id: string;
         chat_group: {
-            subscription_plan: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                business_id: string;
-                name: string;
-                product_id: string | null;
-                description: string | null;
-                cover_image: string | null;
-                creator_id: string;
-            };
             multimedia: {
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                type: import(".prisma/client").$Enums.MultimediaType;
+                url: string;
                 business_id: string | null;
+                type: import(".prisma/client").$Enums.MultimediaType;
                 creator_id: string | null;
                 provider: import(".prisma/client").$Enums.MultimediaProvider;
-                url: string;
-            };
-            chat: {
-                id: string;
-                created_at: Date;
-                updated_at: Date;
-                deleted_at: Date | null;
-                last_message: string | null;
-                last_message_at: Date | null;
-                is_archived: boolean;
-                unread: Prisma.JsonValue;
-                is_group: boolean;
-                initiator_id: string | null;
-                chat_buddy_id: string | null;
-                chat_group_id: string | null;
             };
             _count: {
                 multimedia: number;
@@ -1340,18 +1314,44 @@ export declare class ChatsService {
                 chat: number;
                 chat_messages: number;
             };
-            creator: {
+            chat: {
                 id: string;
                 created_at: Date;
                 updated_at: Date;
                 deleted_at: Date | null;
-                email: string;
+                chat_group_id: string | null;
+                initiator_id: string | null;
+                chat_buddy_id: string | null;
+                last_message: string | null;
+                last_message_at: Date | null;
+                is_archived: boolean;
+                unread: Prisma.JsonValue;
+                is_group: boolean;
+            };
+            subscription_plan: {
                 name: string;
+                id: string;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
+                business_id: string;
+                creator_id: string;
+                product_id: string | null;
+                description: string | null;
+                cover_image: string | null;
+            };
+            creator: {
+                name: string;
+                id: string;
+                email: string;
                 password_hash: string | null;
                 phone: string | null;
                 is_email_verified: boolean;
                 is_phone_verified: boolean;
                 is_first_signup: boolean;
+                created_at: Date;
+                updated_at: Date;
+                deleted_at: Date | null;
                 role_identity: string | null;
                 is_suspended: boolean | null;
                 suspended_by: string | null;
@@ -1377,21 +1377,21 @@ export declare class ChatsService {
                 deleted_at: Date | null;
                 message: string | null;
                 read: boolean;
+                chat_group_id: string | null;
                 initiator_id: string;
                 chat_buddy_id: string | null;
-                chat_group_id: string | null;
                 file: string | null;
                 chat_id: string;
             }[];
         } & {
+            name: string;
             id: string;
             created_at: Date;
             updated_at: Date;
             deleted_at: Date | null;
-            name: string;
-            description: string | null;
-            creator_id: string | null;
             subscription_plan_id: string | null;
+            creator_id: string | null;
+            description: string | null;
             multimedia_id: string | null;
             auto_created: boolean;
         };
